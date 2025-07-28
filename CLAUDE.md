@@ -1,1 +1,1 @@
-- perform git commit on each change
+- perform git commit on each significant shource code change.
