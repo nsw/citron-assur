@@ -28,7 +28,8 @@ Then('I should see {string}', async ({ page }, text: string) => {
 });
 
 Then('I should see the help message {string}', async ({ page }, message: string) => {
-  await expect(page.locator(`text="${message}"`)).toBeVisible();
+  // Use getByText which handles apostrophes better
+  await expect(page.getByText(message)).toBeVisible();
 });
 
 Then('I should see an error message', async ({ page }) => {

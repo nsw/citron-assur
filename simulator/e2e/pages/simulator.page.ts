@@ -8,7 +8,7 @@ export class SimulatorPage extends BasePage {
 
   // Locators
   private productCard = (productName: string) => 
-    this.page.locator('.product-card').filter({ hasText: productName });
+    this.page.locator('.product-card').filter({ has: this.page.locator('.product-title', { hasText: productName }) });
   
   private stepIndicator = (stepNumber: number) => 
     this.page.locator(`.step:has(.step-number:has-text("${stepNumber}"))`);
@@ -73,7 +73,16 @@ export class SimulatorPage extends BasePage {
   }
 
   async isFieldVisible(fieldId: string): Promise<boolean> {
-    return await this.formField(fieldId).isVisible();
+    try {
+      // Wait for form to be visible first
+      await this.page.locator('.form-grid').waitFor({ state: 'visible', timeout: 5000 });
+      await this.page.waitForTimeout(500);
+      
+      const field = this.formField(fieldId);
+      return await field.isVisible();
+    } catch {
+      return false;
+    }
   }
 
   async isFieldDisabled(fieldId: string): Promise<boolean> {
@@ -81,7 +90,14 @@ export class SimulatorPage extends BasePage {
   }
 
   async getFieldValue(fieldId: string): Promise<string> {
-    return await this.formField(fieldId).inputValue();
+    const field = this.formField(fieldId);
+    await field.waitFor({ state: 'visible', timeout: 5000 });
+    const tagName = await field.evaluate(el => el.tagName.toLowerCase());
+    
+    if (tagName === 'select') {
+      return await field.inputValue();
+    }
+    return await field.inputValue();
   }
 
   async isStepActive(stepNumber: number): Promise<boolean> {

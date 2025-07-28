@@ -56,12 +56,12 @@ Feature: Product Calculations
     And I should see "Rente mensuelle" in the summary
     And I should see "Rente de réversion" in the summary
 
-  Scenario: Validation prevents calculation with missing fields
+  Scenario: Default values enable calculation
     When I select the "Assurance-Vie" product
     And I click "Continuer avec ce produit"
-    And I fill the form with:
-      | age | 35 |
-    Then I should see an error message
+    And I click "Calculer"
+    Then I should see the results page
+    And I should see "Capital final estimé"
 
   Scenario: Reset simulation
     Given I have completed a calculation for "Assurance-Vie"

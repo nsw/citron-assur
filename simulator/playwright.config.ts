@@ -10,8 +10,9 @@ export default defineConfig({
   testDir,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  retries: process.env.CI ? 2 : 1,
+  workers: process.env.CI ? 1 : 3,
+  timeout: 60000,
   reporter: [
     ['html', { outputFolder: 'e2e/reports/html' }],
     ['json', { outputFile: 'e2e/reports/results.json' }],

@@ -13,6 +13,8 @@ export class BasePage {
 
   async clickButton(text: string) {
     await this.page.getByRole('button', { name: text }).click();
+    // Wait a bit for any animations or state changes
+    await this.page.waitForTimeout(500);
   }
 
   async fillInput(label: string, value: string) {

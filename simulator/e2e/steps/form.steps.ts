@@ -24,6 +24,8 @@ Then('I should not see the {string} field', async ({ page }, fieldId: string) =>
   expect(isVisible).toBe(false);
 });
 
+// The "But" keyword is just an alias for "Then" in Cucumber/Gherkin
+
 Then('the {string} field should have value {string}', async ({ page }, fieldId: string, value: string) => {
   if (!simulatorPage) simulatorPage = new SimulatorPage(page);
   const fieldValue = await simulatorPage.getFieldValue(fieldId);
@@ -38,9 +40,12 @@ Then('the {string} field should be disabled', async ({ page }, fieldId: string) 
 
 Then('I should see all these fields:', async ({ page }, dataTable) => {
   const expectedFields = dataTable.raw().flat();
+  if (!simulatorPage) simulatorPage = new SimulatorPage(page);
+  
+  // Wait for form to stabilize
+  await page.waitForTimeout(1000);
   
   for (const fieldId of expectedFields) {
-    if (!simulatorPage) simulatorPage = new SimulatorPage(page);
     const isVisible = await simulatorPage.isFieldVisible(fieldId);
     expect(isVisible).toBe(true);
   }
