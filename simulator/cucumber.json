@@ -1,0 +1,12 @@
+{
+  "default": {
+    "requireModule": ["ts-node/register"],
+    "require": ["e2e/steps/**/*.ts"],
+    "format": [
+      "json:e2e/reports/cucumber-report.json",
+      "html:e2e/reports/cucumber-report.html",
+      "progress"
+    ],
+    "publishQuiet": true
+  }
+}

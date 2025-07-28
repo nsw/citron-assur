@@ -1,0 +1,53 @@
+{
+  "products": {
+    "assuranceVie": {
+      "name": "Assurance-Vie",
+      "defaultForm": {
+        "age": "35",
+        "sexe": "H",
+        "statut": "salarie",
+        "capital": "10000",
+        "versementsMensuels": "200",
+        "dureeInvestissement": "10",
+        "tauxRendement": "2.5"
+      }
+    },
+    "per": {
+      "name": "PER Individuel",
+      "defaultForm": {
+        "age": "35",
+        "sexe": "H",
+        "statut": "salarie",
+        "revenus": "40000",
+        "capital": "5000",
+        "versementsMensuels": "300",
+        "ageRetraite": "62",
+        "tauxRendement": "3.0"
+      }
+    },
+    "madelin": {
+      "name": "Contrat Madelin",
+      "defaultForm": {
+        "age": "35",
+        "sexe": "H",
+        "statut": "tns",
+        "revenus": "60000",
+        "capital": "10000",
+        "versementsMensuels": "500",
+        "ageRetraite": "62",
+        "tauxRendement": "3.0"
+      }
+    },
+    "renteViagere": {
+      "name": "Rente Viagère",
+      "defaultForm": {
+        "age": "65",
+        "sexe": "H",
+        "statut": "retraite",
+        "capital": "100000",
+        "tauxReversion": "60",
+        "ageConjoint": "62"
+      }
+    }
+  }
+}
