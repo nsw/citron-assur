@@ -4,9 +4,42 @@
   margin: 0 auto;
 }
 
-h1 {
+.header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, var(--lemon-light) 0%, var(--lemon-yellow) 100%);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(255, 230, 27, 0.3);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.lemon-icon {
+  font-size: 48px;
+  color: var(--leaf-green);
+  transform: rotate(-15deg);
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  font-size: 18px;
+  color: var(--text-light);
+  margin: 0;
+  font-style: italic;
 }
 
 .loading-container {
@@ -22,18 +55,38 @@ h1 {
 
 mat-expansion-panel {
   margin-bottom: 16px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border-radius: 12px !important;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+mat-expansion-panel:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  border-color: var(--lemon-light);
 }
 
 mat-expansion-panel-header {
-  padding: 16px 24px !important;
+  padding: 20px 24px !important;
+  background-color: white !important;
 }
 
 mat-panel-title {
+  font-size: 18px;
+}
+
+.panel-title-content {
   display: flex;
   align-items: center;
   gap: 16px;
-  font-size: 18px;
+  width: 100%;
+}
+
+.type-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
 }
 
 .product-count {
@@ -48,11 +101,15 @@ mat-list {
 
 mat-list-item {
   height: auto !important;
-  padding: 16px 24px !important;
+  padding: 20px 24px !important;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  margin: 4px 8px;
 }
 
 mat-list-item:hover {
-  background-color: #f5f5f5;
+  background-color: var(--lemon-light);
+  transform: translateX(8px);
 }
 
 .list-item-meta {
@@ -66,5 +123,24 @@ mat-divider {
 }
 
 mat-chip {
-  margin-top: 5px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 8px 16px !important;
+}
+
+.loading-container mat-spinner {
+  --mdc-circular-progress-active-indicator-color: var(--lemon-yellow);
+}
+
+button[mat-icon-button] {
+  transition: all 0.3s ease;
+}
+
+button[mat-icon-button]:hover {
+  background-color: var(--lemon-light);
+  transform: scale(1.1);
+}
+
+button[mat-icon-button] mat-icon {
+  color: var(--leaf-green);
 }

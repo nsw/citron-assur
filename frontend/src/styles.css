@@ -1,12 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
+:root {
+  --lemon-yellow: #FFE61B;
+  --lemon-light: #FFF6A6;
+  --lemon-dark: #E6C800;
+  --lemon-green: #8BC34A;
+  --leaf-green: #689F38;
+  --citrus-orange: #FFB300;
+  --citrus-red: #FF6B6B;
+  --citrus-pink: #FFB6C1;
+  --bg-light: #FFFEF5;
+  --text-dark: #2C3E50;
+  --text-light: #5A6C7D;
+}
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, var(--bg-light) 0%, #FFF9E6 100%);
+  min-height: 100vh;
+  color: var(--text-dark);
 }
 
 * {
   box-sizing: border-box;
+}
+
+.mat-mdc-chip.mat-mdc-chip-selected.mat-primary {
+  background-color: var(--lemon-yellow) !important;
+  color: var(--text-dark) !important;
+}
+
+.mat-mdc-chip.mat-mdc-chip-selected.mat-accent {
+  background-color: var(--lemon-green) !important;
+  color: white !important;
+}
+
+.mat-mdc-chip.mat-mdc-chip-selected.mat-warn {
+  background-color: var(--citrus-orange) !important;
+  color: white !important;
 }

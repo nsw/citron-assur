@@ -1,5 +1,11 @@
 <div class="product-list-container">
-  <h1>Produits d'Assurance</h1>
+  <div class="header">
+    <div class="logo-container">
+      <mat-icon class="lemon-icon">eco</mat-icon>
+      <h1>Citron-Assur</h1>
+    </div>
+    <p class="subtitle">Vos produits d'assurance avec une touche de fraîcheur</p>
+  </div>
   
   <div *ngIf="loading" class="loading-container">
     <mat-spinner></mat-spinner>
@@ -10,10 +16,13 @@
       <mat-expansion-panel *ngFor="let type of getProductTypes()" [expanded]="true">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <mat-chip [color]="getTypeColor(type)" selected>
-              {{ productTypeLabels[type] || type }}
-            </mat-chip>
-            <span class="product-count">({{ groupedProducts.get(type)?.length || 0 }} produits)</span>
+            <div class="panel-title-content">
+              <mat-icon class="type-icon" [style.color]="getIconColor(type)">{{ getTypeIcon(type) }}</mat-icon>
+              <mat-chip [color]="getTypeColor(type)" selected>
+                {{ productTypeLabels[type] || type }}
+              </mat-chip>
+              <span class="product-count">({{ groupedProducts.get(type)?.length || 0 }} produits)</span>
+            </div>
           </mat-panel-title>
         </mat-expansion-panel-header>
         

@@ -93,4 +93,28 @@ export class ProductListComponent implements OnInit {
     };
     return colors[type] || 'primary';
   }
+
+  getTypeIcon(type: string): string {
+    const icons: Record<string, string> = {
+      'assurance-vie': 'savings',
+      'per-individuel': 'account_balance',
+      'contrat-madelin': 'business_center',
+      'contrat-capitalisation': 'trending_up',
+      'prevoyance-mixte': 'security',
+      'rente-viagere': 'hourglass_full'
+    };
+    return icons[type] || 'description';
+  }
+
+  getIconColor(type: string): string {
+    const colors: Record<string, string> = {
+      'assurance-vie': '#FFE61B',
+      'per-individuel': '#8BC34A',
+      'contrat-madelin': '#FFB300',
+      'contrat-capitalisation': '#FFA726',
+      'prevoyance-mixte': '#66BB6A',
+      'rente-viagere': '#FF7043'
+    };
+    return colors[type] || '#FFE61B';
+  }
 }
