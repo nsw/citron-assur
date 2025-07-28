@@ -38,6 +38,153 @@ body {
     5px 5px 10px rgba(0,0,0,0.2);
   font-weight: 800;
   letter-spacing: -1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
+}
+
+/* Lemon container for fruit ninja effect */
+.lemon-container {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.lemon-slice {
+  position: absolute;
+  font-size: 3rem;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  display: inline-block;
+  line-height: 1;
+}
+
+.lemon-left {
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+  left: 0;
+}
+
+.lemon-right {
+  clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+  left: 0;
+}
+
+/* Hover effect - fruit ninja slice */
+.lemon-container:hover .lemon-left {
+  transform: translateX(-15px) translateY(-10px) rotate(-25deg);
+  filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.3));
+}
+
+.lemon-container:hover .lemon-right {
+  transform: translateX(15px) translateY(10px) rotate(25deg);
+  filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.3));
+}
+
+/* Add slash effect on hover */
+.lemon-container::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transition: width 0.3s ease;
+  opacity: 0;
+}
+
+.lemon-container:hover::after {
+  width: 120%;
+  opacity: 1;
+  animation: slash 0.3s ease-out;
+}
+
+@keyframes slash {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    width: 120%;
+    opacity: 0;
+  }
+}
+
+/* Title text styling */
+.title-text {
+  display: inline-block;
+}
+
+/* Juice splash particles */
+.lemon-container::before {
+  content: '💧';
+  position: absolute;
+  font-size: 0.8rem;
+  color: #FFE135;
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.lemon-container:hover::before {
+  animation: juice-splash 0.6s ease-out;
+}
+
+@keyframes juice-splash {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3) rotate(180deg);
+  }
+}
+
+/* Add multiple juice drops */
+.lemon-container:hover .lemon-left::after,
+.lemon-container:hover .lemon-right::after {
+  content: '•';
+  position: absolute;
+  color: #FFE135;
+  font-size: 0.5rem;
+  animation: juice-drop 0.8s ease-out;
+}
+
+.lemon-container:hover .lemon-left::after {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0.1s;
+}
+
+.lemon-container:hover .lemon-right::after {
+  top: 30%;
+  right: 10%;
+  animation-delay: 0.2s;
+}
+
+@keyframes juice-drop {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.5);
+  }
 }
 
 .header p {
