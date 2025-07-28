@@ -94,6 +94,11 @@ export class App implements OnInit {
         this.specificFields[field.id] = field.value;
       }
     });
+    
+    // Force TNS status for Madelin
+    if (product.id === 'madelin') {
+      this.params.statut = 'tns';
+    }
   }
 
   canProceedToParams(): boolean {
@@ -209,5 +214,24 @@ export class App implements OnInit {
     setTimeout(() => {
       this.isLemonSliced = false;
     }, 2000);
+  }
+
+  // Check if a field should be shown for the selected product
+  showField(fieldName: string): boolean {
+    if (!this.selectedProduct) return true;
+    
+    const fieldVisibility: Record<string, string[]> = {
+      'assurance-vie': ['age', 'sexe', 'statut', 'capital', 'versementsMensuels'],
+      'per': ['age', 'sexe', 'statut', 'revenus', 'capital', 'versementsMensuels'],
+      'madelin': ['age', 'sexe', 'statut', 'revenus', 'capital', 'versementsMensuels'],
+      'rente-viagere': ['age', 'sexe', 'statut', 'capital']
+    };
+    
+    return fieldVisibility[this.selectedProduct.id]?.includes(fieldName) || false;
+  }
+
+  // Check if statut field should be disabled for Madelin
+  isStatutDisabled(): boolean {
+    return this.selectedProduct?.id === 'madelin';
   }
 }

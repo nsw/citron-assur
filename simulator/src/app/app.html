@@ -73,8 +73,24 @@
   <div *ngIf="currentStep === 2" class="card">
     <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">Vos informations personnelles</h2>
     
+    <!-- Dynamic help message based on selected product -->
+    <div style="text-align: center; margin-bottom: 20px;">
+      <span *ngIf="selectedProduct?.id === 'assurance-vie'" style="color: #FFA500; font-style: italic;">
+        ℹ️ L'assurance-vie n'est pas soumise aux plafonds de revenus
+      </span>
+      <span *ngIf="selectedProduct?.id === 'per'" style="color: #FFA500; font-style: italic;">
+        ℹ️ Le PER offre une déduction fiscale basée sur vos revenus
+      </span>
+      <span *ngIf="selectedProduct?.id === 'madelin'" style="color: #FFA500; font-style: italic;">
+        ℹ️ Le contrat Madelin est réservé aux travailleurs non-salariés (TNS)
+      </span>
+      <span *ngIf="selectedProduct?.id === 'rente-viagere'" style="color: #FFA500; font-style: italic;">
+        ℹ️ La rente viagère convertit un capital unique en revenus à vie
+      </span>
+    </div>
+    
     <div class="form-grid">
-      <div class="form-group">
+      <div class="form-group" *ngIf="showField('age')">
         <label for="age">
           Âge 
           <span class="info-tooltip">ℹ️<span class="tooltip-text">Votre âge actuel est nécessaire pour calculer la durée d'épargne, les primes d'assurance et estimer l'espérance de vie pour les rentes viagères</span></span>
@@ -82,7 +98,7 @@
         <input type="number" id="age" [(ngModel)]="params.age" min="18" max="85" required>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" *ngIf="showField('sexe')">
         <label for="sexe">
           Sexe
           <span class="info-tooltip">ℹ️<span class="tooltip-text">Le sexe influence les tables de mortalité utilisées pour calculer les rentes viagères et les primes d'assurance</span></span>
@@ -93,19 +109,19 @@
         </select>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" *ngIf="showField('statut')">
         <label for="statut">
           Statut professionnel
           <span class="info-tooltip">ℹ️<span class="tooltip-text">Votre statut détermine les plafonds de déduction fiscale et les produits éligibles (ex: Madelin pour TNS)</span></span>
         </label>
-        <select id="statut" [(ngModel)]="params.statut" required>
+        <select id="statut" [(ngModel)]="params.statut" required [disabled]="isStatutDisabled()">
           <option value="salarie">Salarié</option>
           <option value="tns">Travailleur Non Salarié</option>
           <option value="retraite">Retraité</option>
         </select>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" *ngIf="showField('revenus')">
         <label for="revenus">
           Revenus annuels (€) 
           <span class="info-tooltip">ℹ️<span class="tooltip-text">Vos revenus permettent de calculer les plafonds de déduction fiscale pour le PER (10% des revenus) et Madelin (jusqu'à 25% pour les TNS)</span></span>
@@ -113,7 +129,7 @@
         <input type="number" id="revenus" [(ngModel)]="params.revenus" min="0" step="1000">
       </div>
 
-      <div class="form-group">
+      <div class="form-group" *ngIf="showField('capital')">
         <label for="capital">
           Capital à investir (€)
           <span class="info-tooltip">ℹ️<span class="tooltip-text">Le montant initial que vous souhaitez placer. Ce capital servira de base pour calculer les intérêts composés et la croissance de votre épargne</span></span>
@@ -121,7 +137,7 @@
         <input type="number" id="capital" [(ngModel)]="params.capital" min="100" step="100" required>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" *ngIf="showField('versementsMensuels')">
         <label for="versementsMensuels">
           Versements mensuels (€)
           <span class="info-tooltip">ℹ️<span class="tooltip-text">Les versements réguliers permettent de constituer progressivement votre épargne et bénéficient aussi des intérêts composés</span></span>
