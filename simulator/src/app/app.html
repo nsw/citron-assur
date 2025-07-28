@@ -106,12 +106,12 @@
                [min]="field.min"
                [max]="field.max"
                [step]="field.step"
-               [required]="field.required">
+               [required]="field.required || false">
                
         <select *ngIf="field.type === 'select'"
                 [id]="field.id"
                 [(ngModel)]="specificFields[field.id]"
-                [required]="field.required">
+                [required]="field.required || false">
           <option *ngFor="let option of field.options" [value]="option.value">
             {{ option.label }}
           </option>

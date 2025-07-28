@@ -166,7 +166,7 @@ body {
 }
 
 .product-features li::before {
-  content: '✓';
+  content: '';
   color: #4CAF50;
   font-weight: bold;
   position: absolute;

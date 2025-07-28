@@ -74,7 +74,7 @@ export class App implements OnInit {
     }
   };
   
-  chartType: ChartType = 'line';
+  chartType: 'line' = 'line';
 
   constructor(private simulatorService: SimulatorService) {}
 
