@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
 
 export class BasePage {
   constructor(protected page: Page) {}
@@ -12,7 +12,21 @@ export class BasePage {
   }
 
   async clickButton(text: string) {
-    await this.page.getByRole('button', { name: text }).click();
+    const button = this.page.getByRole('button', { name: text });
+    
+    // Wait for button to be visible and enabled
+    await button.waitFor({ state: 'visible' });
+    await expect(button).toBeEnabled();
+    
+    // Click and wait for any navigation or network activity
+    await Promise.all([
+      button.click(),
+      // Wait for either navigation or network idle (whichever comes first)
+      Promise.race([
+        this.page.waitForNavigation({ waitUntil: 'networkidle' }).catch(() => {}),
+        this.page.waitForLoadState('networkidle').catch(() => {})
+      ])
+    ]);
   }
 
   async fillInput(label: string, value: string) {

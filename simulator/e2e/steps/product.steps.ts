@@ -4,10 +4,8 @@ import { SimulatorPage } from '../pages/simulator.page';
 
 const { When, Then } = createBdd();
 
-let simulatorPage: SimulatorPage;
-
 When('I select the {string} product', async ({ page }, productName: string) => {
-  simulatorPage = new SimulatorPage(page);
+  const simulatorPage = new SimulatorPage(page);
   await simulatorPage.selectProduct(productName);
 });
 
@@ -25,7 +23,7 @@ Then('I should see the following products:', async ({ page }, dataTable) => {
 });
 
 Then('the {string} product should be highlighted', async ({ page }, productName: string) => {
-  if (!simulatorPage) simulatorPage = new SimulatorPage(page);
+  const simulatorPage = new SimulatorPage(page);
   const isSelected = await simulatorPage.isProductSelected(productName);
   expect(isSelected).toBe(true);
 });

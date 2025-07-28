@@ -5,10 +5,8 @@ import { AngularHelper } from '../helpers/angular-helper';
 
 const { Given, When, Then } = createBdd();
 
-let simulatorPage: SimulatorPage;
-
 Given('I am on the simulator page', async ({ page }) => {
-  simulatorPage = new SimulatorPage(page);
+  const simulatorPage = new SimulatorPage(page);
   await simulatorPage.navigate('/');
   await simulatorPage.waitForPageLoad();
   
@@ -23,12 +21,12 @@ Given('I am on the simulator page', async ({ page }) => {
 });
 
 When('I click {string}', async ({ page }, buttonText: string) => {
-  if (!simulatorPage) simulatorPage = new SimulatorPage(page);
+  const simulatorPage = new SimulatorPage(page);
   await simulatorPage.clickButton(buttonText);
 });
 
 Then('I should be on step {int}', async ({ page }, stepNumber: number) => {
-  if (!simulatorPage) simulatorPage = new SimulatorPage(page);
+  const simulatorPage = new SimulatorPage(page);
   const currentStep = await simulatorPage.getCurrentStep();
   expect(currentStep).toBe(stepNumber);
 });
@@ -50,7 +48,7 @@ Then('I should see an error message', async ({ page }) => {
 });
 
 Then('I should still be on step {int}', async ({ page }, stepNumber: number) => {
-  if (!simulatorPage) simulatorPage = new SimulatorPage(page);
+  const simulatorPage = new SimulatorPage(page);
   const currentStep = await simulatorPage.getCurrentStep();
   expect(currentStep).toBe(stepNumber);
 });

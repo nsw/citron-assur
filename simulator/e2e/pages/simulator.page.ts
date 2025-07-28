@@ -114,29 +114,31 @@ export class SimulatorPage extends BasePage {
   }
 
   async isFieldDisabled(fieldId: string): Promise<boolean> {
-    return await this.formField(fieldId).isDisabled();
+    // Ensure we're on the form page
+    await this.page.waitForSelector('.form-grid', { state: 'visible', timeout: 10000 });
+    
+    const field = this.formField(fieldId);
+    await field.waitFor({ state: 'visible', timeout: 5000 });
+    return await field.isDisabled();
   }
 
   async getFieldValue(fieldId: string): Promise<string> {
-    try {
-      const field = this.formField(fieldId);
-      
-      // Wait for field to be attached to DOM
-      await field.waitFor({ state: 'attached', timeout: 5000 });
-      
-      // Additional wait for visibility
-      await expect(field).toBeVisible({ timeout: 5000 });
-      
-      const tagName = await field.evaluate(el => el.tagName.toLowerCase());
-      
-      if (tagName === 'select') {
-        return await field.inputValue();
-      }
-      return await field.inputValue();
-    } catch (error) {
-      console.error(`Failed to get value for field ${fieldId}:`, error);
-      throw error;
+    // Ensure we're on the form page before trying to get field value
+    await this.page.waitForSelector('.form-grid', { state: 'visible', timeout: 10000 });
+    
+    const field = this.formField(fieldId);
+    
+    // Wait for field to be attached and visible
+    await field.waitFor({ state: 'visible', timeout: 5000 });
+    
+    const tagName = await field.evaluate(el => el.tagName.toLowerCase());
+    
+    if (tagName === 'select') {
+      // For select elements, use evaluate to get the value
+      return await field.evaluate((el: HTMLSelectElement) => el.value);
     }
+    
+    return await field.inputValue();
   }
 
   async isStepActive(stepNumber: number): Promise<boolean> {
