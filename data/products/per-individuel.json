@@ -1,0 +1,317 @@
+[
+  {
+    "id": "PER_001",
+    "nom_commercial": "Linxea PER",
+    "gestionnaire": "Suravenir",
+    "date_creation": "2019-10-01",
+    "statut": "actif",
+    "parametres_entree": {
+      "versement_initial_minimum": 100,
+      "versements_programmes_minimum": 50,
+      "versements_libres_minimum": 100,
+      "age_minimum_souscripteur": 18,
+      "age_maximum_souscripteur": 75,
+      "montant_maximum_autorise": 10000000
+    },
+    "compartiments": {
+      "compartiment_1": {
+        "nom": "versements_volontaires",
+        "alimentation": ["versements_deductibles", "versements_non_deductibles"],
+        "sortie": ["capital", "rente", "mixte"]
+      },
+      "compartiment_2": {
+        "nom": "epargne_salariale",
+        "alimentation": ["participation", "interessement", "abondement", "ppv", "cet"],
+        "sortie": ["capital", "rente", "mixte"]
+      },
+      "compartiment_3": {
+        "nom": "versements_obligatoires",
+        "alimentation": [],
+        "sortie": ["rente_uniquement"]
+      }
+    },
+    "deductibilite_fiscale": {
+      "salaries": {
+        "formule": "MAX(10% × revenus_N-1, 10% × PASS_N-1)",
+        "pass_2024": 46368,
+        "minimum": 4637,
+        "maximum": 37094
+      },
+      "tns": {
+        "formule": "MAX([10% × benefice_N] + [15% × (benefice_N - PASS_N) si > PASS_N], 10% × PASS_N)",
+        "pass_2025": 47100,
+        "minimum": 4710,
+        "maximum": 87135
+      },
+      "reports_plafonds": {
+        "duree": 3,
+        "cumul_possible": true
+      }
+    },
+    "frais": {
+      "frais_adhesion": 50,
+      "frais_versement": 0.0,
+      "frais_gestion_annuels": {
+        "fonds_euros": 0.5,
+        "unites_compte": 0.75,
+        "gestion_pilotee_surcout": 0.3
+      },
+      "frais_arbitrage": {
+        "nombre_gratuits": 3,
+        "cout_supplementaire": 30
+      },
+      "frais_transfert": {
+        "avant_5_ans": 1.0,
+        "apres_5_ans": 0.0
+      },
+      "frais_arrerages_rente": 3.0
+    },
+    "supports_investissement": {
+      "fonds_euros": [
+        {
+          "id": "FE_PER_001",
+          "nom": "Suravenir Rendement",
+          "taux_servi_2024": 2.4,
+          "allocation_max": 100
+        }
+      ],
+      "gestion_pilotee": {
+        "profils": ["defensif", "equilibre", "dynamique", "offensif"],
+        "reequilibrage_automatique": true,
+        "horizon_temporel": {"jeune": "100% actions", "proche_retraite": "20% actions"}
+      }
+    },
+    "sortie_retraite": {
+      "age_minimum": 62,
+      "deblocages_anticipes": [
+        "invalidite_2e_3e_categorie",
+        "deces_conjoint_partenaire",
+        "expiration_droits_chomage",
+        "surendettement",
+        "liquidation_judiciaire_tns",
+        "acquisition_residence_principale"
+      ],
+      "modalites_sortie": {
+        "capital": {"disponible": true, "fiscalite": "bareme_progressif"},
+        "rente": {"disponible": true, "table_mortalite": "TGHF05"},
+        "mixte": {"capital_max": 80, "rente_min": 20}
+      }
+    },
+    "transferts": {
+      "entrants": ["PERP", "Madelin", "Prefon", "ancien_article_83"],
+      "sortants": ["PER_homologue"],
+      "portabilite": true,
+      "delais_maximum": 15
+    }
+  },
+  {
+    "id": "PER_002",
+    "nom_commercial": "PER Placement-direct Darjeeling",
+    "gestionnaire": "Swiss Life",
+    "date_creation": "2020-01-15",
+    "statut": "actif",
+    "parametres_entree": {
+      "versement_initial_minimum": 1000,
+      "versements_programmes_minimum": 100,
+      "versements_libres_minimum": 500,
+      "age_minimum_souscripteur": 18,
+      "age_maximum_souscripteur": 70,
+      "montant_maximum_autorise": 5000000
+    },
+    "compartiments": {
+      "compartiment_1": {
+        "nom": "versements_volontaires",
+        "alimentation": ["versements_deductibles", "versements_non_deductibles"],
+        "sortie": ["capital", "rente", "mixte"]
+      },
+      "compartiment_2": {
+        "nom": "epargne_salariale",
+        "alimentation": ["participation", "interessement", "abondement", "ppv", "cet"],
+        "sortie": ["capital", "rente", "mixte"]
+      },
+      "compartiment_3": {
+        "nom": "versements_obligatoires",
+        "alimentation": [],
+        "sortie": ["rente_uniquement"]
+      }
+    },
+    "deductibilite_fiscale": {
+      "salaries": {
+        "formule": "MAX(10% × revenus_N-1, 10% × PASS_N-1)",
+        "pass_2024": 46368,
+        "minimum": 4637,
+        "maximum": 37094
+      },
+      "tns": {
+        "formule": "MAX([10% × benefice_N] + [15% × (benefice_N - PASS_N) si > PASS_N], 10% × PASS_N)",
+        "pass_2025": 47100,
+        "minimum": 4710,
+        "maximum": 87135
+      },
+      "reports_plafonds": {
+        "duree": 3,
+        "cumul_possible": true
+      }
+    },
+    "frais": {
+      "frais_adhesion": 0,
+      "frais_versement": 0.0,
+      "frais_gestion_annuels": {
+        "fonds_euros": 0.6,
+        "unites_compte": 0.85,
+        "gestion_pilotee_surcout": 0.4
+      },
+      "frais_arbitrage": {
+        "nombre_gratuits": 6,
+        "cout_supplementaire": 0
+      },
+      "frais_transfert": {
+        "avant_5_ans": 0.5,
+        "apres_5_ans": 0.0
+      },
+      "frais_arrerages_rente": 2.5
+    },
+    "supports_investissement": {
+      "fonds_euros": [
+        {
+          "id": "FE_PER_002",
+          "nom": "Swiss Life Euro Dynamique",
+          "taux_servi_2024": 2.6,
+          "allocation_max": 100
+        }
+      ],
+      "gestion_pilotee": {
+        "profils": ["prudent", "equilibre", "dynamique", "agressif"],
+        "reequilibrage_automatique": true,
+        "horizon_temporel": {"jeune": "90% actions", "proche_retraite": "30% actions"}
+      }
+    },
+    "sortie_retraite": {
+      "age_minimum": 62,
+      "deblocages_anticipes": [
+        "invalidite_2e_3e_categorie",
+        "deces_conjoint_partenaire",
+        "expiration_droits_chomage",
+        "surendettement",
+        "liquidation_judiciaire_tns",
+        "acquisition_residence_principale"
+      ],
+      "modalites_sortie": {
+        "capital": {"disponible": true, "fiscalite": "bareme_progressif"},
+        "rente": {"disponible": true, "table_mortalite": "TGHF05"},
+        "mixte": {"capital_max": 75, "rente_min": 25}
+      }
+    },
+    "transferts": {
+      "entrants": ["PERP", "Madelin", "Prefon", "ancien_article_83"],
+      "sortants": ["PER_homologue"],
+      "portabilite": true,
+      "delais_maximum": 20
+    }
+  },
+  {
+    "id": "PER_003",
+    "nom_commercial": "PER AG2R La Mondiale",
+    "gestionnaire": "AG2R La Mondiale",
+    "date_creation": "2019-12-01",
+    "statut": "actif",
+    "parametres_entree": {
+      "versement_initial_minimum": 500,
+      "versements_programmes_minimum": 75,
+      "versements_libres_minimum": 250,
+      "age_minimum_souscripteur": 18,
+      "age_maximum_souscripteur": 72,
+      "montant_maximum_autorise": 8000000
+    },
+    "compartiments": {
+      "compartiment_1": {
+        "nom": "versements_volontaires",
+        "alimentation": ["versements_deductibles", "versements_non_deductibles"],
+        "sortie": ["capital", "rente", "mixte"]
+      },
+      "compartiment_2": {
+        "nom": "epargne_salariale",
+        "alimentation": ["participation", "interessement", "abondement", "ppv", "cet"],
+        "sortie": ["capital", "rente", "mixte"]
+      },
+      "compartiment_3": {
+        "nom": "versements_obligatoires",
+        "alimentation": [],
+        "sortie": ["rente_uniquement"]
+      }
+    },
+    "deductibilite_fiscale": {
+      "salaries": {
+        "formule": "MAX(10% × revenus_N-1, 10% × PASS_N-1)",
+        "pass_2024": 46368,
+        "minimum": 4637,
+        "maximum": 37094
+      },
+      "tns": {
+        "formule": "MAX([10% × benefice_N] + [15% × (benefice_N - PASS_N) si > PASS_N], 10% × PASS_N)",
+        "pass_2025": 47100,
+        "minimum": 4710,
+        "maximum": 87135
+      },
+      "reports_plafonds": {
+        "duree": 3,
+        "cumul_possible": true
+      }
+    },
+    "frais": {
+      "frais_adhesion": 30,
+      "frais_versement": 1.0,
+      "frais_gestion_annuels": {
+        "fonds_euros": 0.55,
+        "unites_compte": 0.8,
+        "gestion_pilotee_surcout": 0.35
+      },
+      "frais_arbitrage": {
+        "nombre_gratuits": 4,
+        "cout_supplementaire": 25
+      },
+      "frais_transfert": {
+        "avant_5_ans": 1.5,
+        "apres_5_ans": 0.0
+      },
+      "frais_arrerages_rente": 3.5
+    },
+    "supports_investissement": {
+      "fonds_euros": [
+        {
+          "id": "FE_PER_003",
+          "nom": "AG2R Actif Général",
+          "taux_servi_2024": 2.5,
+          "allocation_max": 100
+        }
+      ],
+      "gestion_pilotee": {
+        "profils": ["securise", "equilibre", "tonique", "offensif"],
+        "reequilibrage_automatique": true,
+        "horizon_temporel": {"jeune": "85% actions", "proche_retraite": "25% actions"}
+      }
+    },
+    "sortie_retraite": {
+      "age_minimum": 62,
+      "deblocages_anticipes": [
+        "invalidite_2e_3e_categorie",
+        "deces_conjoint_partenaire",
+        "expiration_droits_chomage",
+        "surendettement",
+        "liquidation_judiciaire_tns",
+        "acquisition_residence_principale"
+      ],
+      "modalites_sortie": {
+        "capital": {"disponible": true, "fiscalite": "bareme_progressif"},
+        "rente": {"disponible": true, "table_mortalite": "TGHF05"},
+        "mixte": {"capital_max": 85, "rente_min": 15}
+      }
+    },
+    "transferts": {
+      "entrants": ["PERP", "Madelin", "Prefon", "ancien_article_83"],
+      "sortants": ["PER_homologue"],
+      "portabilite": true,
+      "delais_maximum": 18
+    }
+  }
+]

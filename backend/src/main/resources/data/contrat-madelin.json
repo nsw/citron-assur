@@ -1,0 +1,149 @@
+[
+  {
+    "id": "MAD_001",
+    "nom_commercial": "Madelin Retraite Pro",
+    "assureur": "AG2R La Mondiale",
+    "beneficiaires": ["tns", "professions_liberales"],
+    "parametres_entree": {
+      "versement_initial_minimum": 500,
+      "versements_programmes_minimum": 100,
+      "age_minimum": 18,
+      "age_maximum": 70,
+      "justificatifs_requis": ["declaration_tns", "kbis", "revenus_n-1_n-2"]
+    },
+    "deductibilite": {
+      "retraite": {
+        "formule": "identique_PER_TNS",
+        "maximum_2025": 87135
+      },
+      "prevoyance_sante": {
+        "formule": "MIN(3.75% × benefice + 7% × PASS, 3% × 8 × PASS)",
+        "maximum_2025": 11304
+      },
+      "perte_emploi": {
+        "formule": "MAX(1.875% × benefice, 2.5% × PASS)",
+        "minimum_2025": 1177
+      },
+      "neutralisation_mad15": true
+    },
+    "frais": {
+      "frais_entree": 2.5,
+      "frais_gestion": 1.2,
+      "frais_transfert": 1.0
+    },
+    "rente_obligatoire": {
+      "sortie_exclusive": "rente_viagere",
+      "age_liquidation_minimum": 60,
+      "taux_conversion": "table_TGHF05",
+      "reversion": {
+        "taux_possible": [60, 80, 100],
+        "reduction_rente": {"60%": 8, "80%": 15, "100%": 20}
+      },
+      "indexation": "IPC_INSEE"
+    },
+    "garanties": {
+      "garantie_deces": {
+        "avant_liquidation": "remboursement_cotisations_revalorisees",
+        "apres_liquidation": "rente_reversion_si_prevue"
+      }
+    }
+  },
+  {
+    "id": "MAD_002",
+    "nom_commercial": "SwissLife Madelin TNS",
+    "assureur": "Swiss Life",
+    "beneficiaires": ["tns", "professions_liberales", "exploitants_agricoles"],
+    "parametres_entree": {
+      "versement_initial_minimum": 1000,
+      "versements_programmes_minimum": 150,
+      "age_minimum": 18,
+      "age_maximum": 67,
+      "justificatifs_requis": ["declaration_tns", "kbis", "revenus_n-1_n-2", "attestation_urssaf"]
+    },
+    "deductibilite": {
+      "retraite": {
+        "formule": "identique_PER_TNS",
+        "maximum_2025": 87135
+      },
+      "prevoyance_sante": {
+        "formule": "MIN(3.75% × benefice + 7% × PASS, 3% × 8 × PASS)",
+        "maximum_2025": 11304
+      },
+      "perte_emploi": {
+        "formule": "MAX(1.875% × benefice, 2.5% × PASS)",
+        "minimum_2025": 1177
+      },
+      "neutralisation_mad15": true
+    },
+    "frais": {
+      "frais_entree": 3.0,
+      "frais_gestion": 1.0,
+      "frais_transfert": 0.8
+    },
+    "rente_obligatoire": {
+      "sortie_exclusive": "rente_viagere",
+      "age_liquidation_minimum": 62,
+      "taux_conversion": "table_TGHF05",
+      "reversion": {
+        "taux_possible": [60, 80, 100],
+        "reduction_rente": {"60%": 7, "80%": 14, "100%": 18}
+      },
+      "indexation": "IPC_INSEE"
+    },
+    "garanties": {
+      "garantie_deces": {
+        "avant_liquidation": "remboursement_cotisations_revalorisees",
+        "apres_liquidation": "rente_reversion_si_prevue"
+      }
+    }
+  },
+  {
+    "id": "MAD_003",
+    "nom_commercial": "Generali Madelin Excellence",
+    "assureur": "Generali",
+    "beneficiaires": ["tns", "professions_liberales"],
+    "parametres_entree": {
+      "versement_initial_minimum": 750,
+      "versements_programmes_minimum": 125,
+      "age_minimum": 21,
+      "age_maximum": 68,
+      "justificatifs_requis": ["declaration_tns", "kbis", "revenus_n-1_n-2"]
+    },
+    "deductibilite": {
+      "retraite": {
+        "formule": "identique_PER_TNS",
+        "maximum_2025": 87135
+      },
+      "prevoyance_sante": {
+        "formule": "MIN(3.75% × benefice + 7% × PASS, 3% × 8 × PASS)",
+        "maximum_2025": 11304
+      },
+      "perte_emploi": {
+        "formule": "MAX(1.875% × benefice, 2.5% × PASS)",
+        "minimum_2025": 1177
+      },
+      "neutralisation_mad15": true
+    },
+    "frais": {
+      "frais_entree": 2.0,
+      "frais_gestion": 1.5,
+      "frais_transfert": 1.2
+    },
+    "rente_obligatoire": {
+      "sortie_exclusive": "rente_viagere",
+      "age_liquidation_minimum": 60,
+      "taux_conversion": "table_TGHF05",
+      "reversion": {
+        "taux_possible": [60, 80, 100],
+        "reduction_rente": {"60%": 9, "80%": 16, "100%": 22}
+      },
+      "indexation": "IPC_INSEE"
+    },
+    "garanties": {
+      "garantie_deces": {
+        "avant_liquidation": "remboursement_cotisations_revalorisees",
+        "apres_liquidation": "rente_reversion_si_prevue"
+      }
+    }
+  }
+]

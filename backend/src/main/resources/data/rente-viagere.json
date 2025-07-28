@@ -1,0 +1,197 @@
+[
+  {
+    "id": "RV_001",
+    "nom_commercial": "Rente Sérénité",
+    "assureur": "CNP Assurances",
+    "parametres_calcul": {
+      "capital_constitutif_minimum": 15000,
+      "table_mortalite": "TGHF05",
+      "taux_technique_maximum": "60% × TME_6_mois",
+      "periodicite": ["mensuelle", "trimestrielle", "annuelle"]
+    },
+    "options_reversion": {
+      "sans_reversion": {
+        "rente_maximale": true,
+        "arret_deces": true
+      },
+      "reversion_60": {
+        "reduction_rente": 8,
+        "beneficiaire": "conjoint"
+      },
+      "reversion_80": {
+        "reduction_rente": 15,
+        "beneficiaire": "conjoint"
+      },
+      "reversion_100": {
+        "reduction_rente": 20,
+        "beneficiaire": "conjoint"
+      }
+    },
+    "indexation": {
+      "type": "IPC_INSEE",
+      "clause_non_diminution": true,
+      "plafond_revalorisation": 3.0
+    },
+    "garanties_complementaires": {
+      "arrerages_echus": {
+        "nombre_mois": 12,
+        "beneficiaire": "heritiers"
+      },
+      "capital_deces": {
+        "disponible": true,
+        "montant_max": "50% × capital_constitutif"
+      }
+    },
+    "fiscalite": {
+      "fraction_imposable": {
+        "moins_50_ans": 70,
+        "50_59_ans": 50,
+        "60_69_ans": 40,
+        "70_ans_plus": 30
+      },
+      "prelevement_source": 0.0
+    },
+    "exemple_calcul": {
+      "homme_67_ans_200k": {
+        "rente_simple": 13158,
+        "rente_reversion_60": 10870,
+        "impact_reversion": -17
+      },
+      "couple_67_65_ans_200k": {
+        "rente_conjointe": 9840,
+        "reversion_60": 8560,
+        "duree_esperance": 25
+      }
+    }
+  },
+  {
+    "id": "RV_002",
+    "nom_commercial": "Rente Liberté",
+    "assureur": "AG2R La Mondiale",
+    "parametres_calcul": {
+      "capital_constitutif_minimum": 20000,
+      "table_mortalite": "TGHF05",
+      "taux_technique_maximum": "60% × TME_6_mois",
+      "periodicite": ["mensuelle", "trimestrielle", "semestrielle", "annuelle"]
+    },
+    "options_reversion": {
+      "sans_reversion": {
+        "rente_maximale": true,
+        "arret_deces": true
+      },
+      "reversion_60": {
+        "reduction_rente": 7,
+        "beneficiaire": "conjoint"
+      },
+      "reversion_80": {
+        "reduction_rente": 14,
+        "beneficiaire": "conjoint"
+      },
+      "reversion_100": {
+        "reduction_rente": 18,
+        "beneficiaire": "conjoint"
+      }
+    },
+    "indexation": {
+      "type": "IPC_INSEE",
+      "clause_non_diminution": true,
+      "plafond_revalorisation": 2.5
+    },
+    "garanties_complementaires": {
+      "arrerages_echus": {
+        "nombre_mois": 6,
+        "beneficiaire": "heritiers"
+      },
+      "capital_deces": {
+        "disponible": true,
+        "montant_max": "40% × capital_constitutif"
+      }
+    },
+    "fiscalite": {
+      "fraction_imposable": {
+        "moins_50_ans": 70,
+        "50_59_ans": 50,
+        "60_69_ans": 40,
+        "70_ans_plus": 30
+      },
+      "prelevement_source": 0.0
+    },
+    "exemple_calcul": {
+      "homme_67_ans_200k": {
+        "rente_simple": 13500,
+        "rente_reversion_60": 11250,
+        "impact_reversion": -16.7
+      },
+      "couple_67_65_ans_200k": {
+        "rente_conjointe": 10100,
+        "reversion_60": 8850,
+        "duree_esperance": 24
+      }
+    }
+  },
+  {
+    "id": "RV_003",
+    "nom_commercial": "Rente Confort Plus",
+    "assureur": "Swiss Life",
+    "parametres_calcul": {
+      "capital_constitutif_minimum": 30000,
+      "table_mortalite": "TGHF05",
+      "taux_technique_maximum": "60% × TME_6_mois",
+      "periodicite": ["mensuelle", "trimestrielle", "annuelle"]
+    },
+    "options_reversion": {
+      "sans_reversion": {
+        "rente_maximale": true,
+        "arret_deces": true
+      },
+      "reversion_60": {
+        "reduction_rente": 9,
+        "beneficiaire": "conjoint"
+      },
+      "reversion_80": {
+        "reduction_rente": 16,
+        "beneficiaire": "conjoint"
+      },
+      "reversion_100": {
+        "reduction_rente": 22,
+        "beneficiaire": "conjoint"
+      }
+    },
+    "indexation": {
+      "type": "IPC_INSEE",
+      "clause_non_diminution": true,
+      "plafond_revalorisation": 3.5
+    },
+    "garanties_complementaires": {
+      "arrerages_echus": {
+        "nombre_mois": 18,
+        "beneficiaire": "heritiers"
+      },
+      "capital_deces": {
+        "disponible": true,
+        "montant_max": "60% × capital_constitutif"
+      }
+    },
+    "fiscalite": {
+      "fraction_imposable": {
+        "moins_50_ans": 70,
+        "50_59_ans": 50,
+        "60_69_ans": 40,
+        "70_ans_plus": 30
+      },
+      "prelevement_source": 0.0
+    },
+    "exemple_calcul": {
+      "homme_67_ans_200k": {
+        "rente_simple": 12800,
+        "rente_reversion_60": 10450,
+        "impact_reversion": -18.4
+      },
+      "couple_67_65_ans_200k": {
+        "rente_conjointe": 9600,
+        "reversion_60": 8200,
+        "duree_esperance": 26
+      }
+    }
+  }
+]

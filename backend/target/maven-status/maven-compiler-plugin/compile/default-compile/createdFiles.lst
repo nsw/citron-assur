@@ -1,2 +1,8 @@
-com/citronassur/backend/controller/HelloController.class
+com/citronassur/backend/service/SimpleProductService$1.class
+com/citronassur/backend/model/Product.class
 com/citronassur/backend/BackendApplication.class
+com/citronassur/backend/service/SimpleProductService.class
+com/citronassur/backend/config/CorsConfig.class
+com/citronassur/backend/controller/HelloController.class
+com/citronassur/backend/controller/ProductController.class
+com/citronassur/backend/config/SwaggerConfig.class

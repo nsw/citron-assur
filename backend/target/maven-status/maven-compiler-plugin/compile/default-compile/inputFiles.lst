@@ -1,2 +1,7 @@
 /Users/sni/Documents/projet/citron-assur/backend/src/main/java/com/citronassur/backend/BackendApplication.java
+/Users/sni/Documents/projet/citron-assur/backend/src/main/java/com/citronassur/backend/config/CorsConfig.java
+/Users/sni/Documents/projet/citron-assur/backend/src/main/java/com/citronassur/backend/config/SwaggerConfig.java
 /Users/sni/Documents/projet/citron-assur/backend/src/main/java/com/citronassur/backend/controller/HelloController.java
+/Users/sni/Documents/projet/citron-assur/backend/src/main/java/com/citronassur/backend/controller/ProductController.java
+/Users/sni/Documents/projet/citron-assur/backend/src/main/java/com/citronassur/backend/model/Product.java
+/Users/sni/Documents/projet/citron-assur/backend/src/main/java/com/citronassur/backend/service/SimpleProductService.java

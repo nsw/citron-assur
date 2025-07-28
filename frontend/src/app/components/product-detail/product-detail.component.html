@@ -1,0 +1,66 @@
+<h2 mat-dialog-title>
+  {{ product.nom_commercial }}
+  <span class="product-type">[{{ productTypeLabels[product.type] || product.type }}]</span>
+</h2>
+
+<mat-dialog-content>
+  <mat-tab-group>
+    <mat-tab label="Informations générales">
+      <div class="tab-content">
+        <div class="info-section">
+          <h3>Identification</h3>
+          <p><strong>ID:</strong> {{ product.id }}</p>
+          <p><strong>Type:</strong> {{ productTypeLabels[product.type] || product.type }}</p>
+          <p *ngIf="product.data?.assureur"><strong>Assureur:</strong> {{ product.data.assureur }}</p>
+          <p *ngIf="product.data?.gestionnaire"><strong>Gestionnaire:</strong> {{ product.data.gestionnaire }}</p>
+          <p *ngIf="product.data?.statut"><strong>Statut:</strong> {{ product.data.statut }}</p>
+          <p *ngIf="product.data?.date_creation"><strong>Date de création:</strong> {{ product.data.date_creation }}</p>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Détails complets">
+      <div class="tab-content">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let key of getObjectKeys(product.data)" [expanded]="false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ formatKey(key) }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+            <div class="panel-content">
+              <div *ngIf="!isObject(product.data[key]) && !isArray(product.data[key])">
+                {{ formatValue(product.data[key]) }}
+              </div>
+              
+              <div *ngIf="isArray(product.data[key])">
+                <ul>
+                  <li *ngFor="let item of product.data[key]">
+                    <span *ngIf="!isObject(item)">{{ item }}</span>
+                    <pre *ngIf="isObject(item)">{{ item | json }}</pre>
+                  </li>
+                </ul>
+              </div>
+              
+              <pre *ngIf="isObject(product.data[key]) && !isArray(product.data[key])">{{ product.data[key] | json }}</pre>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="JSON">
+      <div class="tab-content">
+        <pre class="json-view">{{ product.data | json }}</pre>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">
+    <mat-icon>close</mat-icon>
+    Fermer
+  </button>
+</mat-dialog-actions>

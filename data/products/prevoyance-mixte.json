@@ -1,0 +1,134 @@
+[
+  {
+    "id": "PM_001",
+    "nom_commercial": "Protection Famille Plus",
+    "assureur": "Malakoff Humanis",
+    "garanties_deces": {
+      "capital_fixe": {
+        "montant": 100000,
+        "evolution": "constant"
+      },
+      "capital_variable": {
+        "type": "decroissant_lineaire",
+        "montant_initial": 200000,
+        "duree": 20
+      },
+      "questionnaire_medical": {
+        "obligatoire_si": "> 100000",
+        "examens_medicaux_si": "> 500000"
+      },
+      "exclusions": ["suicide_1e_annee", "guerre", "sports_extremes"],
+      "table_mortalite": "TH00-02_TF00-02"
+    },
+    "contre_assurance": {
+      "valeur_rachat": {
+        "progression": "croissante",
+        "table_garanties": true,
+        "minimum_garanti": 85
+      },
+      "avance_sur_contrat": {
+        "disponible": true,
+        "pourcentage_max": 80,
+        "taux_interet": "TME + 2%"
+      }
+    },
+    "primes": {
+      "mode_paiement": ["annuel", "semestriel", "trimestriel", "mensuel"],
+      "majoration_fractionnement": {"semestriel": 3, "trimestriel": 5, "mensuel": 8},
+      "revalorisation": "possible_selon_benefices"
+    },
+    "duree": {
+      "temporaire": {"duree_max": 30},
+      "vie_entiere": true,
+      "transformation_possible": true
+    }
+  },
+  {
+    "id": "PM_002",
+    "nom_commercial": "Securité Vie Mixte",
+    "assureur": "AXA",
+    "garanties_deces": {
+      "capital_fixe": {
+        "montant": 150000,
+        "evolution": "indexe_inflation"
+      },
+      "capital_variable": {
+        "type": "decroissant_lineaire",
+        "montant_initial": 300000,
+        "duree": 25
+      },
+      "questionnaire_medical": {
+        "obligatoire_si": "> 150000",
+        "examens_medicaux_si": "> 750000"
+      },
+      "exclusions": ["suicide_1e_annee", "guerre", "sports_extremes", "aviation_privee"],
+      "table_mortalite": "TGHF05"
+    },
+    "contre_assurance": {
+      "valeur_rachat": {
+        "progression": "croissante",
+        "table_garanties": true,
+        "minimum_garanti": 90
+      },
+      "avance_sur_contrat": {
+        "disponible": true,
+        "pourcentage_max": 85,
+        "taux_interet": "TME + 1.5%"
+      }
+    },
+    "primes": {
+      "mode_paiement": ["annuel", "semestriel", "trimestriel", "mensuel"],
+      "majoration_fractionnement": {"semestriel": 2, "trimestriel": 4, "mensuel": 6},
+      "revalorisation": "automatique_3%_an"
+    },
+    "duree": {
+      "temporaire": {"duree_max": 35},
+      "vie_entiere": true,
+      "transformation_possible": true
+    }
+  },
+  {
+    "id": "PM_003",
+    "nom_commercial": "Prevoyance Evolution",
+    "assureur": "Generali",
+    "garanties_deces": {
+      "capital_fixe": {
+        "montant": 200000,
+        "evolution": "paliers_5_ans"
+      },
+      "capital_variable": {
+        "type": "decroissant_progressif",
+        "montant_initial": 400000,
+        "duree": 30
+      },
+      "questionnaire_medical": {
+        "obligatoire_si": "> 200000",
+        "examens_medicaux_si": "> 1000000"
+      },
+      "exclusions": ["suicide_1e_annee", "guerre", "sports_extremes"],
+      "table_mortalite": "TH00-02_TF00-02"
+    },
+    "contre_assurance": {
+      "valeur_rachat": {
+        "progression": "croissante",
+        "table_garanties": true,
+        "minimum_garanti": 87
+      },
+      "avance_sur_contrat": {
+        "disponible": true,
+        "pourcentage_max": 75,
+        "taux_interet": "TME + 2.5%"
+      }
+    },
+    "primes": {
+      "mode_paiement": ["annuel", "semestriel", "trimestriel", "mensuel"],
+      "majoration_fractionnement": {"semestriel": 4, "trimestriel": 6, "mensuel": 10},
+      "revalorisation": "selon_indice_ffsa"
+    },
+    "duree": {
+      "temporaire": {"duree_max": 40},
+      "vie_entiere": true,
+      "transformation_possible": true
+    }
+  }
+]

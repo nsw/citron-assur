@@ -1,0 +1,38 @@
+<div class="product-list-container">
+  <h1>Produits d'Assurance</h1>
+  
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!loading" class="product-groups">
+    <mat-accordion multi>
+      <mat-expansion-panel *ngFor="let type of getProductTypes()" [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-chip [color]="getTypeColor(type)" selected>
+              {{ productTypeLabels[type] || type }}
+            </mat-chip>
+            <span class="product-count">({{ groupedProducts.get(type)?.length || 0 }} produits)</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        
+        <mat-list>
+          <mat-list-item *ngFor="let product of groupedProducts.get(type); let last = last">
+            <mat-icon matListItemIcon>description</mat-icon>
+            <div matListItemTitle>{{ product.nom_commercial }}</div>
+            <div matListItemLine>
+              <span class="list-item-meta">ID: {{ product.id }}</span>
+              <span class="list-item-meta" *ngIf="product.data?.assureur">• Assureur: {{ product.data.assureur }}</span>
+              <span class="list-item-meta" *ngIf="product.data?.gestionnaire">• Gestionnaire: {{ product.data.gestionnaire }}</span>
+            </div>
+            <button mat-icon-button color="primary" (click)="openProductDetail(product)" matListItemMeta>
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <mat-divider *ngIf="!last"></mat-divider>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

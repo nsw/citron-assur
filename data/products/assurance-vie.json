@@ -1,0 +1,440 @@
+[
+  {
+    "id": "AV_001",
+    "nom_commercial": "Netissima Plus",
+    "assureur": "Generali",
+    "date_creation": "2024-01-15",
+    "date_fin_commercialisation": null,
+    "statut": "actif",
+    "distributeurs_autorises": ["banques", "courtiers", "cgp"],
+    "parametres_entree": {
+      "versement_initial_minimum": 1000,
+      "versements_programmes_minimum": 50,
+      "versements_libres_minimum": 300,
+      "age_minimum_souscripteur": 0,
+      "age_maximum_souscripteur": 85,
+      "montant_maximum_autorise": 5000000
+    },
+    "frais": {
+      "frais_entree": {
+        "type": "pourcentage",
+        "taux": 0.0,
+        "maximum": 5.0
+      },
+      "frais_gestion_annuels": {
+        "fonds_euros": 0.6,
+        "unites_compte": 0.85
+      },
+      "frais_arbitrage": {
+        "nombre_gratuits_annuels": 6,
+        "cout_supplementaire": 35.0
+      },
+      "frais_sortie": {
+        "avant_8_ans": 0.0,
+        "apres_8_ans": 0.0
+      }
+    },
+    "supports_investissement": {
+      "fonds_euros": [
+        {
+          "id": "FE_GEN_001",
+          "nom": "Generali Netissima Euro",
+          "type": "nouvelle_generation",
+          "garantie_capital": 100,
+          "taux_technique": 0.0,
+          "taux_servi_2024": 2.8,
+          "participation_benefices_minimum": 85,
+          "composition": {
+            "obligations": 87.5,
+            "actions": 7.5,
+            "immobilier": 3.0,
+            "tresorerie": 2.0
+          },
+          "allocation_min": 0,
+          "allocation_max": 100
+        }
+      ],
+      "unites_compte": [
+        {
+          "id": "UC_001",
+          "nom": "Carmignac Patrimoine",
+          "type": "OPCVM",
+          "classification_risque": "SRI_4",
+          "volatilite": 8.5,
+          "frais_gestion_UC": 1.68,
+          "devise": "EUR",
+          "categorie": "mixte_defensif",
+          "allocation_min": 0,
+          "allocation_max": 100
+        },
+        {
+          "id": "UC_002",
+          "nom": "SCPI Corum Origin",
+          "type": "SCPI",
+          "classification_risque": "SRI_3",
+          "frais_entree_UC": 10.0,
+          "frais_gestion_UC": 9.5,
+          "taux_distribution": 5.2,
+          "allocation_min": 0,
+          "allocation_max": 30
+        }
+      ],
+      "eurocroissance": [
+        {
+          "id": "EC_001",
+          "nom": "Generali Euro Croissance",
+          "duree_minimum": 8,
+          "garantie_echeance": 100,
+          "allocation_initiale": {
+            "provision_mathematique": 70,
+            "provision_diversification": 30
+          },
+          "allocation_finale": {
+            "provision_mathematique": 90,
+            "provision_diversification": 10
+          }
+        }
+      ]
+    },
+    "garanties": {
+      "garantie_deces": {
+        "capital_minimum": 1000,
+        "capital_maximum": 2000000,
+        "table_mortalite": "TH00-02_TF00-02",
+        "questionnaire_medical": {
+          "montant_libre_examen": 300000,
+          "surprimes": {
+            "age": {"40-50": 1.0, "50-60": 1.5, "60+": 2.0},
+            "sante": {"diabete": 1.25, "cardiaque": 2.0},
+            "profession": {"bureau": 1.0, "risque": 3.0}
+          }
+        }
+      },
+      "garantie_plancher": {
+        "disponible": true,
+        "cout_points_base": {"30_ans": 15, "50_ans": 75, "65_ans": 180},
+        "capital_sous_risque": "capital_garanti - valeur_liquidative"
+      }
+    },
+    "beneficiaires": {
+      "clause_standard": "Mon conjoint non séparé de corps ou la personne avec laquelle j'ai conclu un Pacs en vigueur à la date du décès, à défaut mes enfants nés ou à naître, vivants ou représentés, par parts égales, à défaut mes héritiers",
+      "clause_personnalisee": true,
+      "acceptation_possible": true,
+      "demembrement_possible": true
+    },
+    "fiscalite": {
+      "article_990_I": {
+        "versements_avant_70_ans": true,
+        "abattement_par_beneficiaire": 152500,
+        "taxation": {"0-700000": 20, "700000+": 31.25}
+      },
+      "article_757_B": {
+        "versements_apres_70_ans": true,
+        "abattement_global": 30500,
+        "bareme": "successoral_classique"
+      }
+    },
+    "duree_sortie": {
+      "duree_minimum_recommandee": 8,
+      "rachat_partiel": true,
+      "rachat_total": true,
+      "sortie_rente": true,
+      "penalites_rachat": {
+        "avant_8_ans": "prelevement_forfaitaire_liberatoire"
+      }
+    }
+  },
+  {
+    "id": "AV_002",
+    "nom_commercial": "Linxea Avenir",
+    "assureur": "Crédit Mutuel Suravenir",
+    "date_creation": "2023-06-01",
+    "date_fin_commercialisation": null,
+    "statut": "actif",
+    "distributeurs_autorises": ["courtiers", "cgp"],
+    "parametres_entree": {
+      "versement_initial_minimum": 500,
+      "versements_programmes_minimum": 100,
+      "versements_libres_minimum": 500,
+      "age_minimum_souscripteur": 0,
+      "age_maximum_souscripteur": 85,
+      "montant_maximum_autorise": 10000000
+    },
+    "frais": {
+      "frais_entree": {
+        "type": "pourcentage",
+        "taux": 0.0,
+        "maximum": 4.5
+      },
+      "frais_gestion_annuels": {
+        "fonds_euros": 0.6,
+        "unites_compte": 0.6
+      },
+      "frais_arbitrage": {
+        "nombre_gratuits_annuels": 12,
+        "cout_supplementaire": 0.0
+      },
+      "frais_sortie": {
+        "avant_8_ans": 0.0,
+        "apres_8_ans": 0.0
+      }
+    },
+    "supports_investissement": {
+      "fonds_euros": [
+        {
+          "id": "FE_SUR_001",
+          "nom": "Suravenir Rendement",
+          "type": "classique",
+          "garantie_capital": 100,
+          "taux_technique": 0.0,
+          "taux_servi_2024": 2.4,
+          "participation_benefices_minimum": 85,
+          "composition": {
+            "obligations": 85.0,
+            "actions": 8.0,
+            "immobilier": 5.0,
+            "tresorerie": 2.0
+          },
+          "allocation_min": 0,
+          "allocation_max": 100
+        },
+        {
+          "id": "FE_SUR_002",
+          "nom": "Suravenir Opportunités",
+          "type": "nouvelle_generation",
+          "garantie_capital": 100,
+          "taux_technique": 0.0,
+          "taux_servi_2024": 3.1,
+          "participation_benefices_minimum": 85,
+          "composition": {
+            "obligations": 75.0,
+            "actions": 15.0,
+            "immobilier": 8.0,
+            "tresorerie": 2.0
+          },
+          "allocation_min": 0,
+          "allocation_max": 70
+        }
+      ],
+      "unites_compte": [
+        {
+          "id": "UC_003",
+          "nom": "Lyxor MSCI World",
+          "type": "ETF",
+          "classification_risque": "SRI_6",
+          "volatilite": 15.2,
+          "frais_gestion_UC": 0.3,
+          "devise": "EUR",
+          "categorie": "actions_monde",
+          "allocation_min": 0,
+          "allocation_max": 100
+        },
+        {
+          "id": "UC_004",
+          "nom": "Amundi Euro Aggregate Bond",
+          "type": "OPCVM",
+          "classification_risque": "SRI_2",
+          "volatilite": 3.5,
+          "frais_gestion_UC": 0.8,
+          "devise": "EUR",
+          "categorie": "obligations_euro",
+          "allocation_min": 0,
+          "allocation_max": 100
+        }
+      ],
+      "eurocroissance": []
+    },
+    "garanties": {
+      "garantie_deces": {
+        "capital_minimum": 1000,
+        "capital_maximum": 3000000,
+        "table_mortalite": "TH00-02_TF00-02",
+        "questionnaire_medical": {
+          "montant_libre_examen": 500000,
+          "surprimes": {
+            "age": {"40-50": 1.0, "50-60": 1.3, "60+": 1.8},
+            "sante": {"diabete": 1.2, "cardiaque": 1.8},
+            "profession": {"bureau": 1.0, "risque": 2.5}
+          }
+        }
+      },
+      "garantie_plancher": {
+        "disponible": true,
+        "cout_points_base": {"30_ans": 12, "50_ans": 70, "65_ans": 150},
+        "capital_sous_risque": "capital_garanti - valeur_liquidative"
+      }
+    },
+    "beneficiaires": {
+      "clause_standard": "Mon conjoint non séparé de corps ou la personne avec laquelle j'ai conclu un Pacs en vigueur à la date du décès, à défaut mes enfants nés ou à naître, vivants ou représentés, par parts égales, à défaut mes héritiers",
+      "clause_personnalisee": true,
+      "acceptation_possible": true,
+      "demembrement_possible": true
+    },
+    "fiscalite": {
+      "article_990_I": {
+        "versements_avant_70_ans": true,
+        "abattement_par_beneficiaire": 152500,
+        "taxation": {"0-700000": 20, "700000+": 31.25}
+      },
+      "article_757_B": {
+        "versements_apres_70_ans": true,
+        "abattement_global": 30500,
+        "bareme": "successoral_classique"
+      }
+    },
+    "duree_sortie": {
+      "duree_minimum_recommandee": 8,
+      "rachat_partiel": true,
+      "rachat_total": true,
+      "sortie_rente": true,
+      "penalites_rachat": {
+        "avant_8_ans": "prelevement_forfaitaire_liberatoire"
+      }
+    }
+  },
+  {
+    "id": "AV_003",
+    "nom_commercial": "AXA Excelium",
+    "assureur": "AXA France Vie",
+    "date_creation": "2022-03-01",
+    "date_fin_commercialisation": null,
+    "statut": "actif",
+    "distributeurs_autorises": ["banques", "courtiers", "cgp", "agents"],
+    "parametres_entree": {
+      "versement_initial_minimum": 1500,
+      "versements_programmes_minimum": 75,
+      "versements_libres_minimum": 500,
+      "age_minimum_souscripteur": 0,
+      "age_maximum_souscripteur": 80,
+      "montant_maximum_autorise": 8000000
+    },
+    "frais": {
+      "frais_entree": {
+        "type": "pourcentage",
+        "taux": 2.0,
+        "maximum": 4.75
+      },
+      "frais_gestion_annuels": {
+        "fonds_euros": 0.7,
+        "unites_compte": 0.96
+      },
+      "frais_arbitrage": {
+        "nombre_gratuits_annuels": 4,
+        "cout_supplementaire": 40.0
+      },
+      "frais_sortie": {
+        "avant_8_ans": 0.0,
+        "apres_8_ans": 0.0
+      }
+    },
+    "supports_investissement": {
+      "fonds_euros": [
+        {
+          "id": "FE_AXA_001",
+          "nom": "AXA Euro+",
+          "type": "classique",
+          "garantie_capital": 100,
+          "taux_technique": 0.0,
+          "taux_servi_2024": 2.5,
+          "participation_benefices_minimum": 85,
+          "composition": {
+            "obligations": 88.0,
+            "actions": 6.0,
+            "immobilier": 4.0,
+            "tresorerie": 2.0
+          },
+          "allocation_min": 20,
+          "allocation_max": 100
+        }
+      ],
+      "unites_compte": [
+        {
+          "id": "UC_005",
+          "nom": "AXA Rosenberg Global Equity Alpha",
+          "type": "OPCVM",
+          "classification_risque": "SRI_5",
+          "volatilite": 12.8,
+          "frais_gestion_UC": 1.5,
+          "devise": "EUR",
+          "categorie": "actions_monde",
+          "allocation_min": 0,
+          "allocation_max": 80
+        },
+        {
+          "id": "UC_006",
+          "nom": "SCPI Epargne Pierre",
+          "type": "SCPI",
+          "classification_risque": "SRI_3",
+          "frais_entree_UC": 8.0,
+          "frais_gestion_UC": 8.0,
+          "taux_distribution": 4.8,
+          "allocation_min": 0,
+          "allocation_max": 25
+        }
+      ],
+      "eurocroissance": [
+        {
+          "id": "EC_002",
+          "nom": "AXA Croissance 2032",
+          "duree_minimum": 10,
+          "garantie_echeance": 100,
+          "allocation_initiale": {
+            "provision_mathematique": 65,
+            "provision_diversification": 35
+          },
+          "allocation_finale": {
+            "provision_mathematique": 85,
+            "provision_diversification": 15
+          }
+        }
+      ]
+    },
+    "garanties": {
+      "garantie_deces": {
+        "capital_minimum": 2000,
+        "capital_maximum": 2500000,
+        "table_mortalite": "TGHF05",
+        "questionnaire_medical": {
+          "montant_libre_examen": 400000,
+          "surprimes": {
+            "age": {"40-50": 1.1, "50-60": 1.4, "60+": 1.9},
+            "sante": {"diabete": 1.3, "cardiaque": 1.9},
+            "profession": {"bureau": 1.0, "risque": 2.8}
+          }
+        }
+      },
+      "garantie_plancher": {
+        "disponible": true,
+        "cout_points_base": {"30_ans": 18, "50_ans": 80, "65_ans": 200},
+        "capital_sous_risque": "capital_garanti - valeur_liquidative"
+      }
+    },
+    "beneficiaires": {
+      "clause_standard": "Mon conjoint non séparé de corps ou la personne avec laquelle j'ai conclu un Pacs en vigueur à la date du décès, à défaut mes enfants nés ou à naître, vivants ou représentés, par parts égales, à défaut mes héritiers",
+      "clause_personnalisee": true,
+      "acceptation_possible": true,
+      "demembrement_possible": true
+    },
+    "fiscalite": {
+      "article_990_I": {
+        "versements_avant_70_ans": true,
+        "abattement_par_beneficiaire": 152500,
+        "taxation": {"0-700000": 20, "700000+": 31.25}
+      },
+      "article_757_B": {
+        "versements_apres_70_ans": true,
+        "abattement_global": 30500,
+        "bareme": "successoral_classique"
+      }
+    },
+    "duree_sortie": {
+      "duree_minimum_recommandee": 8,
+      "rachat_partiel": true,
+      "rachat_total": true,
+      "sortie_rente": true,
+      "penalites_rachat": {
+        "avant_8_ans": "prelevement_forfaitaire_liberatoire"
+      }
+    }
+  }
+]

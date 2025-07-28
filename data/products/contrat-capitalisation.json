@@ -1,0 +1,119 @@
+[
+  {
+    "id": "CAP_001",
+    "nom_commercial": "Placement Capitalisation Premium",
+    "assureur": "Axa",
+    "parametres_entree": {
+      "versement_minimum": 10000,
+      "duree_minimale": null,
+      "age_minimum": 18,
+      "personnes_morales": true
+    },
+    "fiscalite_specifique": {
+      "regime": "plus_values_mobilieres",
+      "seuils_imposition": {
+        "retrait_annuel": 4600,
+        "retrait_annuel_couple": 9200
+      },
+      "abattement_duree": {
+        "2_ans": 0,
+        "8_ans": 4600,
+        "couple_8_ans": 9200
+      },
+      "prelevement_sociaux": 17.2
+    },
+    "transmission": {
+      "droits_succession": "applicables_pleins_droits",
+      "demembrement_possible": true,
+      "donation_possible": true,
+      "ifi_applicable": true
+    },
+    "supports": {
+      "identiques_assurance_vie": true,
+      "gestion_libre": true,
+      "gestion_pilotee": true
+    },
+    "frais": {
+      "similaires_assurance_vie": true,
+      "frais_transfert": 0.5
+    }
+  },
+  {
+    "id": "CAP_002",
+    "nom_commercial": "Capital Plus Entreprise",
+    "assureur": "Generali",
+    "parametres_entree": {
+      "versement_minimum": 50000,
+      "duree_minimale": null,
+      "age_minimum": null,
+      "personnes_morales": true
+    },
+    "fiscalite_specifique": {
+      "regime": "plus_values_mobilieres",
+      "seuils_imposition": {
+        "retrait_annuel": 4600,
+        "retrait_annuel_couple": 9200
+      },
+      "abattement_duree": {
+        "2_ans": 0,
+        "8_ans": 4600,
+        "couple_8_ans": 9200
+      },
+      "prelevement_sociaux": 17.2
+    },
+    "transmission": {
+      "droits_succession": "applicables_pleins_droits",
+      "demembrement_possible": true,
+      "donation_possible": true,
+      "ifi_applicable": true
+    },
+    "supports": {
+      "identiques_assurance_vie": true,
+      "gestion_libre": true,
+      "gestion_pilotee": true
+    },
+    "frais": {
+      "similaires_assurance_vie": true,
+      "frais_transfert": 0.3
+    }
+  },
+  {
+    "id": "CAP_003",
+    "nom_commercial": "Capitalisation Patrimoine",
+    "assureur": "CNP Assurances",
+    "parametres_entree": {
+      "versement_minimum": 25000,
+      "duree_minimale": null,
+      "age_minimum": 18,
+      "personnes_morales": true
+    },
+    "fiscalite_specifique": {
+      "regime": "plus_values_mobilieres",
+      "seuils_imposition": {
+        "retrait_annuel": 4600,
+        "retrait_annuel_couple": 9200
+      },
+      "abattement_duree": {
+        "2_ans": 0,
+        "8_ans": 4600,
+        "couple_8_ans": 9200
+      },
+      "prelevement_sociaux": 17.2
+    },
+    "transmission": {
+      "droits_succession": "applicables_pleins_droits",
+      "demembrement_possible": true,
+      "donation_possible": true,
+      "ifi_applicable": true
+    },
+    "supports": {
+      "identiques_assurance_vie": true,
+      "gestion_libre": true,
+      "gestion_pilotee": false
+    },
+    "frais": {
+      "similaires_assurance_vie": true,
+      "frais_transfert": 0.6
+    }
+  }
+]
