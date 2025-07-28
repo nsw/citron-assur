@@ -1,7 +1,7 @@
 <div class="container">
   <div class="header">
     <h1>
-      <span class="lemon-container">
+      <span class="lemon-container" [class.sliced]="isLemonSliced" (click)="sliceLemon()">
         <span class="lemon-slice lemon-left">🍋</span>
         <span class="lemon-slice lemon-right">🍋</span>
         <!-- Slash effect -->
@@ -77,13 +77,16 @@
       <div class="form-group">
         <label for="age">
           Âge 
-          <span class="info-tooltip">ℹ️<span class="tooltip-text">Votre âge actuel pour le calcul des primes et rendements</span></span>
+          <span class="info-tooltip">ℹ️<span class="tooltip-text">Votre âge actuel est nécessaire pour calculer la durée d'épargne, les primes d'assurance et estimer l'espérance de vie pour les rentes viagères</span></span>
         </label>
         <input type="number" id="age" [(ngModel)]="params.age" min="18" max="85" required>
       </div>
 
       <div class="form-group">
-        <label for="sexe">Sexe</label>
+        <label for="sexe">
+          Sexe
+          <span class="info-tooltip">ℹ️<span class="tooltip-text">Le sexe influence les tables de mortalité utilisées pour calculer les rentes viagères et les primes d'assurance</span></span>
+        </label>
         <select id="sexe" [(ngModel)]="params.sexe" required>
           <option value="H">Homme</option>
           <option value="F">Femme</option>
@@ -91,7 +94,10 @@
       </div>
 
       <div class="form-group">
-        <label for="statut">Statut professionnel</label>
+        <label for="statut">
+          Statut professionnel
+          <span class="info-tooltip">ℹ️<span class="tooltip-text">Votre statut détermine les plafonds de déduction fiscale et les produits éligibles (ex: Madelin pour TNS)</span></span>
+        </label>
         <select id="statut" [(ngModel)]="params.statut" required>
           <option value="salarie">Salarié</option>
           <option value="tns">Travailleur Non Salarié</option>
@@ -102,24 +108,33 @@
       <div class="form-group">
         <label for="revenus">
           Revenus annuels (€) 
-          <span class="info-tooltip">ℹ️<span class="tooltip-text">Vos revenus pour le calcul des plafonds de déduction</span></span>
+          <span class="info-tooltip">ℹ️<span class="tooltip-text">Vos revenus permettent de calculer les plafonds de déduction fiscale pour le PER (10% des revenus) et Madelin (jusqu'à 25% pour les TNS)</span></span>
         </label>
         <input type="number" id="revenus" [(ngModel)]="params.revenus" min="0" step="1000">
       </div>
 
       <div class="form-group">
-        <label for="capital">Capital à investir (€)</label>
+        <label for="capital">
+          Capital à investir (€)
+          <span class="info-tooltip">ℹ️<span class="tooltip-text">Le montant initial que vous souhaitez placer. Ce capital servira de base pour calculer les intérêts composés et la croissance de votre épargne</span></span>
+        </label>
         <input type="number" id="capital" [(ngModel)]="params.capital" min="100" step="100" required>
       </div>
 
       <div class="form-group">
-        <label for="versementsMensuels">Versements mensuels (€)</label>
+        <label for="versementsMensuels">
+          Versements mensuels (€)
+          <span class="info-tooltip">ℹ️<span class="tooltip-text">Les versements réguliers permettent de constituer progressivement votre épargne et bénéficient aussi des intérêts composés</span></span>
+        </label>
         <input type="number" id="versementsMensuels" [(ngModel)]="params.versementsMensuels" min="0" step="50">
       </div>
 
       <!-- Specific fields -->
       <div class="form-group" *ngFor="let field of productFields">
-        <label [for]="field.id">{{ field.label }}</label>
+        <label [for]="field.id">
+          {{ field.label }}
+          <span class="info-tooltip" *ngIf="field.tooltip">ℹ️<span class="tooltip-text">{{ field.tooltip }}</span></span>
+        </label>
         
         <input *ngIf="field.type === 'number'"
                [type]="field.type"

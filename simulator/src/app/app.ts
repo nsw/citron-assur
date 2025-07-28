@@ -20,15 +20,16 @@ export class App implements OnInit {
   selectedProduct: Product | null = null;
   productFields: ProductField[] = [];
   currentStep = 1;
+  isLemonSliced = false;
   
-  // Form data
+  // Form data with default values
   params: SimulationParams = {
-    age: 0,
+    age: 35,
     sexe: 'H',
     statut: 'salarie',
-    revenus: 0,
-    capital: 0,
-    versementsMensuels: 0
+    revenus: 40000,
+    capital: 10000,
+    versementsMensuels: 200
   };
   
   specificFields: any = {};
@@ -170,12 +171,12 @@ export class App implements OnInit {
     this.currentStep = 1;
     this.simulationResult = null;
     this.params = {
-      age: 0,
+      age: 35,
       sexe: 'H',
       statut: 'salarie',
-      revenus: 0,
-      capital: 0,
-      versementsMensuels: 0
+      revenus: 40000,
+      capital: 10000,
+      versementsMensuels: 200
     };
     this.specificFields = {};
     this.chartData = {
@@ -200,5 +201,13 @@ export class App implements OnInit {
 
   hasChart(): boolean {
     return !!this.simulationResult?.chartData;
+  }
+
+  sliceLemon(): void {
+    this.isLemonSliced = true;
+    // Reset animation after 2 seconds
+    setTimeout(() => {
+      this.isLemonSliced = false;
+    }, 2000);
   }
 }

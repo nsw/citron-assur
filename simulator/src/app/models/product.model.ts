@@ -15,6 +15,7 @@ export interface ProductField {
   step?: number;
   value?: any;
   required?: boolean;
+  tooltip?: string;
   options?: { value: number; label: string }[];
 }
 

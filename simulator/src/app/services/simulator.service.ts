@@ -43,16 +43,16 @@ export class SimulatorService {
   getProductFields(productId: string): ProductField[] {
     const fields: Record<string, ProductField[]> = {
       'assurance-vie': [
-        { id: 'dureeInvestissement', label: 'Durée d\'investissement (années)', type: 'number', min: 1, max: 50, required: true },
-        { id: 'tauxRendement', label: 'Taux de rendement espéré (%)', type: 'number', min: 0, max: 10, step: 0.1, value: 2.5 }
+        { id: 'dureeInvestissement', label: 'Durée d\'investissement (années)', type: 'number', min: 1, max: 50, required: true, value: 10, tooltip: 'La durée pendant laquelle vous souhaitez laisser votre argent fructifier. Plus la durée est longue, plus les intérêts composés sont importants' },
+        { id: 'tauxRendement', label: 'Taux de rendement espéré (%)', type: 'number', min: 0, max: 10, step: 0.1, value: 2.5, tooltip: 'Le rendement annuel moyen attendu. Les fonds euros offrent environ 2-3%, les unités de compte peuvent rapporter plus mais avec plus de risque' }
       ],
       'per': [
-        { id: 'ageRetraite', label: 'Âge de départ en retraite', type: 'number', min: 60, max: 70, value: 62, required: true },
-        { id: 'tauxRendement', label: 'Taux de rendement espéré (%)', type: 'number', min: 0, max: 8, step: 0.1, value: 3.0 }
+        { id: 'ageRetraite', label: 'Âge de départ en retraite', type: 'number', min: 60, max: 70, value: 62, required: true, tooltip: 'L\'âge auquel vous prévoyez de prendre votre retraite. Détermine la durée d\'épargne et le début des versements' },
+        { id: 'tauxRendement', label: 'Taux de rendement espéré (%)', type: 'number', min: 0, max: 8, step: 0.1, value: 3.0, tooltip: 'Le rendement annuel moyen attendu sur votre PER. Généralement entre 2% et 5% selon le profil de risque' }
       ],
       'madelin': [
-        { id: 'ageRetraite', label: 'Âge de départ en retraite', type: 'number', min: 60, max: 70, value: 62, required: true },
-        { id: 'tauxRendement', label: 'Taux de rendement espéré (%)', type: 'number', min: 0, max: 8, step: 0.1, value: 3.0 }
+        { id: 'ageRetraite', label: 'Âge de départ en retraite', type: 'number', min: 60, max: 70, value: 62, required: true, tooltip: 'L\'âge de liquidation de votre contrat Madelin. La sortie se fait obligatoirement en rente viagère' },
+        { id: 'tauxRendement', label: 'Taux de rendement espéré (%)', type: 'number', min: 0, max: 8, step: 0.1, value: 3.0, tooltip: 'Le rendement annuel moyen de votre contrat Madelin. Dépend de la répartition entre fonds euros et unités de compte' }
       ],
       'rente-viagere': [
         { 
@@ -65,9 +65,10 @@ export class SimulatorService {
             { value: 80, label: '80%' },
             { value: 100, label: '100%' }
           ], 
-          value: 0 
+          value: 0,
+          tooltip: 'Pourcentage de la rente qui sera versée à votre conjoint après votre décès. Plus le taux est élevé, plus votre rente initiale sera réduite'
         },
-        { id: 'ageConjoint', label: 'Âge du conjoint (si réversion)', type: 'number', min: 18, max: 100 }
+        { id: 'ageConjoint', label: 'Âge du conjoint (si réversion)', type: 'number', min: 18, max: 100, value: 30, tooltip: 'L\'âge de votre conjoint bénéficiaire de la réversion. Plus il est jeune, plus la réduction de votre rente sera importante' }
       ]
     };
     return fields[productId] || [];

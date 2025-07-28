@@ -75,13 +75,13 @@ body {
   top: 0;
 }
 
-/* Hover effect - horizontal fruit ninja slice */
-.lemon-container:hover .lemon-left {
+/* Click effect - horizontal fruit ninja slice */
+.lemon-container.sliced .lemon-left {
   transform: translateY(-12px) rotate(-15deg) scale(1.1);
   filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.3));
 }
 
-.lemon-container:hover .lemon-right {
+.lemon-container.sliced .lemon-right {
   transform: translateY(12px) rotate(15deg) scale(1.1);
   filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.3));
 }
@@ -111,7 +111,7 @@ body {
   filter: blur(0.5px);
 }
 
-.lemon-container:hover .slash-effect {
+.lemon-container.sliced .slash-effect {
   animation: enhanced-slash 0.5s ease-out forwards;
 }
 
@@ -138,17 +138,17 @@ body {
   }
 }
 
-/* Add shimmer effect to lemon halves on hover */
-.lemon-container:hover .lemon-slice {
+/* Add shimmer effect to lemon halves on click */
+.lemon-container.sliced .lemon-slice {
   filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.3)) brightness(1.1);
 }
 
 /* Pulsing glow effect on the cut edge */
-.lemon-container:hover .lemon-left {
+.lemon-container.sliced .lemon-left {
   box-shadow: 0 2px 10px rgba(255, 225, 53, 0.8);
 }
 
-.lemon-container:hover .lemon-right {
+.lemon-container.sliced .lemon-right {
   box-shadow: 0 -2px 10px rgba(255, 225, 53, 0.8);
 }
 
@@ -205,23 +205,23 @@ body {
   left: 60%;
 }
 
-.lemon-container:hover .juice-particle-1 {
+.lemon-container.sliced .juice-particle-1 {
   animation: juice-burst-1 0.8s ease-out;
 }
 
-.lemon-container:hover .juice-particle-2 {
+.lemon-container.sliced .juice-particle-2 {
   animation: juice-burst-2 0.9s ease-out;
 }
 
-.lemon-container:hover .juice-particle-3 {
+.lemon-container.sliced .juice-particle-3 {
   animation: juice-burst-3 0.7s ease-out;
 }
 
-.lemon-container:hover .juice-particle-4 {
+.lemon-container.sliced .juice-particle-4 {
   animation: juice-burst-4 0.6s ease-out;
 }
 
-.lemon-container:hover .juice-particle-5 {
+.lemon-container.sliced .juice-particle-5 {
   animation: juice-burst-5 0.7s ease-out;
 }
 
@@ -335,27 +335,27 @@ body {
   left: 65%;
 }
 
-.lemon-container:hover .juice-drop-1 {
+.lemon-container.sliced .juice-drop-1 {
   animation: drip-fall-1 1.2s ease-in forwards;
   animation-delay: 0.3s;
 }
 
-.lemon-container:hover .juice-drop-2 {
+.lemon-container.sliced .juice-drop-2 {
   animation: drip-fall-2 1.4s ease-in forwards;
   animation-delay: 0.4s;
 }
 
-.lemon-container:hover .juice-drop-3 {
+.lemon-container.sliced .juice-drop-3 {
   animation: drip-fall-3 1s ease-in forwards;
   animation-delay: 0.35s;
 }
 
-.lemon-container:hover .juice-drop-4 {
+.lemon-container.sliced .juice-drop-4 {
   animation: drip-fall-4 1.3s ease-in forwards;
   animation-delay: 0.45s;
 }
 
-.lemon-container:hover .juice-drop-5 {
+.lemon-container.sliced .juice-drop-5 {
   animation: drip-fall-5 1.1s ease-in forwards;
   animation-delay: 0.5s;
 }
@@ -469,7 +469,7 @@ body {
   pointer-events: none;
 }
 
-.lemon-container:hover .juice-splatter {
+.lemon-container.sliced .juice-splatter {
   animation: splatter-appear 1.5s ease-out forwards;
   animation-delay: 0.8s;
 }
@@ -560,9 +560,21 @@ body {
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   margin-bottom: 30px;
+}
+
+@media (max-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .product-card {
