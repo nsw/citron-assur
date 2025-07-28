@@ -146,16 +146,16 @@ export class App implements OnInit {
         {
           label: 'Capital accumulé',
           data: data.map(d => d.capital),
-          borderColor: '#4CAF50',
-          backgroundColor: 'rgba(76, 175, 80, 0.1)',
+          borderColor: '#FFE135',
+          backgroundColor: 'rgba(255, 225, 53, 0.2)',
           fill: true,
           tension: 0.4
         },
         {
           label: 'Total versé',
           data: data.map(d => d.verse),
-          borderColor: '#2196F3',
-          backgroundColor: 'rgba(33, 150, 243, 0.1)',
+          borderColor: '#FFA500',
+          backgroundColor: 'rgba(255, 165, 0, 0.1)',
           fill: false,
           borderDash: [5, 5]
         }

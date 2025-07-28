@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles - Citron (Lemon) Theme */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #FFF3B0 0%, #FFE135 50%, #FFC300 100%);
+  min-height: 100vh;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* Add subtle lemon pattern overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 40%, rgba(255, 225, 53, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 60%, rgba(255, 193, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(255, 243, 176, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
