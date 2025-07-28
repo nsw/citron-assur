@@ -1,6 +1,7 @@
 import { createBdd } from 'playwright-bdd';
 import { expect } from '@playwright/test';
 import { SimulatorPage } from '../pages/simulator.page';
+import { AngularHelper } from '../helpers/angular-helper';
 
 const { Given, When, Then } = createBdd();
 
@@ -11,14 +12,14 @@ Given('I am on the simulator page', async ({ page }) => {
   await simulatorPage.navigate('/');
   await simulatorPage.waitForPageLoad();
   
+  // Wait for Angular to be ready
+  await AngularHelper.waitForAngular(page);
+  
   // Ensure we're on the product selection page
   await page.waitForSelector('.product-grid', { state: 'visible', timeout: 10000 });
   
   // Wait for all products to be loaded
   await page.waitForSelector('.product-card', { state: 'visible' });
-  
-  // Give Angular time to initialize
-  await page.waitForTimeout(500);
 });
 
 When('I click {string}', async ({ page }, buttonText: string) => {

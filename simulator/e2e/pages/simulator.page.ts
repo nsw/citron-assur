@@ -1,5 +1,6 @@
 import { Page, expect } from '@playwright/test';
 import { BasePage } from './base.page';
+import { AngularHelper } from '../helpers/angular-helper';
 
 export class SimulatorPage extends BasePage {
   constructor(page: Page) {
@@ -41,17 +42,10 @@ export class SimulatorPage extends BasePage {
   }
 
   async continueToNextStep() {
-    // Wait for any animations to settle
-    await this.page.waitForLoadState('domcontentloaded');
-    
     await this.clickButton('Continuer avec ce produit');
     
-    // Wait for navigation animation
-    await this.page.waitForTimeout(300);
-    
-    // Wait for form to be visible and stable
-    await this.page.waitForSelector('.form-grid', { state: 'visible' });
-    await this.page.waitForLoadState('networkidle');
+    // Wait for form to be ready
+    await AngularHelper.waitForFormReady(this.page);
   }
 
   async goBack() {
@@ -104,12 +98,8 @@ export class SimulatorPage extends BasePage {
 
   async isFieldVisible(fieldId: string): Promise<boolean> {
     try {
-      // Wait for any animations to complete
-      await this.page.waitForLoadState('networkidle');
-      
-      // Make sure we're on the form step
-      const formGrid = this.page.locator('.form-grid');
-      await expect(formGrid).toBeVisible({ timeout: 5000 });
+      // Wait for Angular to be stable
+      await AngularHelper.waitForAngular(this.page);
       
       // Check if field exists in DOM first
       const field = this.formField(fieldId);

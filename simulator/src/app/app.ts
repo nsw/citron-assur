@@ -113,6 +113,13 @@ export class App implements OnInit {
   nextStep() {
     if (this.currentStep === 1 && this.selectedProduct) {
       this.currentStep = 2;
+      
+      // Trigger change detection after navigation
+      // Small delay to ensure DOM is updated with dynamic fields
+      setTimeout(() => {
+        // This helps Angular detect that productFields should be rendered
+        this.productFields = [...this.productFields];
+      }, 0);
     }
   }
 
