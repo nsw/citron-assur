@@ -12,6 +12,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ProductService } from '../../services/product.service';
 import { Product, PRODUCT_TYPE_LABELS } from '../../models/product.model';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
+import { ProductIconComponent } from '../product-icon/product-icon.component';
 
 @Component({
   selector: 'app-product-list',
@@ -26,7 +27,8 @@ import { ProductDetailComponent } from '../product-detail/product-detail.compone
     MatProgressSpinnerModule,
     MatListModule,
     MatDividerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    ProductIconComponent
   ],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']

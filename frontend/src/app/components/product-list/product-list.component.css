@@ -21,10 +21,14 @@
   margin-bottom: 10px;
 }
 
-.lemon-icon {
-  font-size: 48px;
-  color: var(--leaf-green);
-  transform: rotate(-15deg);
+.lemon-logo {
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
 }
 
 h1 {
@@ -89,6 +93,10 @@ mat-panel-title {
   height: 32px;
 }
 
+app-product-icon {
+  margin-right: 8px;
+}
+
 .product-count {
   color: #666;
   font-size: 14px;
@@ -107,9 +115,23 @@ mat-list-item {
   margin: 4px 8px;
 }
 
-mat-list-item:hover {
+.clickable-item {
+  cursor: pointer;
+}
+
+.clickable-item:hover {
   background-color: var(--lemon-light);
   transform: translateX(8px);
+}
+
+.chevron-icon {
+  color: var(--text-light);
+  transition: all 0.2s ease;
+}
+
+.clickable-item:hover .chevron-icon {
+  color: var(--leaf-green);
+  transform: translateX(4px);
 }
 
 .list-item-meta {

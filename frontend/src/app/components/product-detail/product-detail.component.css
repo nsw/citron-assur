@@ -13,21 +13,32 @@
 
 .info-section {
   margin-bottom: 20px;
-  padding: 16px;
-  background-color: white;
+  padding: 20px;
+  background-color: #FFFFFF;
   border-radius: 8px;
   border-left: 4px solid var(--lemon-yellow);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .info-section h3 {
-  margin-bottom: 10px;
-  color: var(--text-dark);
-  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1A1A1A;
+  font-weight: 700;
+  font-size: 18px;
+  border-bottom: 2px solid var(--lemon-light);
+  padding-bottom: 8px;
 }
 
 .info-section p {
-  margin: 5px 0;
+  margin: 8px 0;
+  color: #333333;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.info-section p strong {
+  color: #000000;
+  font-weight: 600;
 }
 
 mat-expansion-panel {
@@ -62,13 +73,16 @@ mat-expansion-panel:hover {
 }
 
 .json-view {
-  background-color: var(--bg-light);
+  background-color: #2D2D2D;
+  color: #F8F8F2;
   padding: 20px;
   border-radius: 8px;
   overflow-x: auto;
-  font-size: 12px;
-  border: 2px dashed var(--lemon-light);
-  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  border: 2px solid var(--lemon-yellow);
+  font-family: 'Monaco', 'Courier New', monospace;
+  line-height: 1.5;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
 }
 
 mat-dialog-actions {
@@ -92,17 +106,32 @@ mat-dialog-actions button:hover {
 
 ::ng-deep .mat-mdc-dialog-container {
   border-radius: 16px !important;
+  background-color: #FAFAFA !important;
+}
+
+::ng-deep .mat-mdc-dialog-title {
+  color: #1A1A1A !important;
+  font-weight: 700 !important;
+  font-size: 24px !important;
 }
 
 ::ng-deep .mat-mdc-tab-group .mat-mdc-tab-labels {
-  background-color: var(--lemon-light);
+  background-color: #FFFFFF;
+  border-bottom: 2px solid var(--lemon-light);
+}
+
+::ng-deep .mat-mdc-tab .mat-mdc-tab-text-label {
+  color: #555555;
+  font-weight: 500;
+  opacity: 1;
 }
 
 ::ng-deep .mat-mdc-tab.mat-mdc-tab-active .mat-mdc-tab-text-label {
-  color: var(--text-dark);
-  font-weight: 600;
+  color: #000000;
+  font-weight: 700;
 }
 
 ::ng-deep .mat-mdc-tab-indicator .mat-mdc-tab-indicator-content {
-  background-color: var(--lemon-dark);
+  background-color: var(--lemon-yellow);
+  height: 3px;
 }

@@ -1,7 +1,14 @@
 <div class="product-list-container">
   <div class="header">
     <div class="logo-container">
-      <mat-icon class="lemon-icon">eco</mat-icon>
+      <svg class="lemon-logo" width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="45" fill="#FFE61B"/>
+        <circle cx="50" cy="50" r="40" fill="#FFF6A6"/>
+        <path d="M50 10 Q70 30 70 50 Q70 70 50 90 Q30 70 30 50 Q30 30 50 10 Z" fill="#FFE61B"/>
+        <circle cx="40" cy="40" r="3" fill="#E6C800" opacity="0.6"/>
+        <circle cx="60" cy="60" r="3" fill="#E6C800" opacity="0.6"/>
+        <path d="M45 5 Q50 0 55 5 Q55 15 50 20 Q45 15 45 5 Z" fill="#8BC34A"/>
+      </svg>
       <h1>Citron-Assur</h1>
     </div>
     <p class="subtitle">Vos produits d'assurance avec une touche de fraîcheur</p>
@@ -17,7 +24,7 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
             <div class="panel-title-content">
-              <mat-icon class="type-icon" [style.color]="getIconColor(type)">{{ getTypeIcon(type) }}</mat-icon>
+              <app-product-icon [type]="type" [size]="40" [color]="getIconColor(type)"></app-product-icon>
               <mat-chip [color]="getTypeColor(type)" selected>
                 {{ productTypeLabels[type] || type }}
               </mat-chip>
@@ -27,7 +34,9 @@
         </mat-expansion-panel-header>
         
         <mat-list>
-          <mat-list-item *ngFor="let product of groupedProducts.get(type); let last = last">
+          <mat-list-item *ngFor="let product of groupedProducts.get(type); let last = last" 
+                         class="clickable-item"
+                         (click)="openProductDetail(product)">
             <mat-icon matListItemIcon>description</mat-icon>
             <div matListItemTitle>{{ product.nom_commercial }}</div>
             <div matListItemLine>
@@ -35,9 +44,7 @@
               <span class="list-item-meta" *ngIf="product.data?.assureur">• Assureur: {{ product.data.assureur }}</span>
               <span class="list-item-meta" *ngIf="product.data?.gestionnaire">• Gestionnaire: {{ product.data.gestionnaire }}</span>
             </div>
-            <button mat-icon-button color="primary" (click)="openProductDetail(product)" matListItemMeta>
-              <mat-icon>visibility</mat-icon>
-            </button>
+            <mat-icon matListItemMeta class="chevron-icon">chevron_right</mat-icon>
             <mat-divider *ngIf="!last"></mat-divider>
           </mat-list-item>
         </mat-list>
