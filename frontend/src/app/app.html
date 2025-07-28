@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>Citron-Assur Application</h1>
+  
+  <div class="message-box">
+    <h2>Backend Response:</h2>
+    <p *ngIf="helloMessage" class="message">{{ helloMessage }}</p>
+    <p *ngIf="!helloMessage" class="loading">Loading...</p>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

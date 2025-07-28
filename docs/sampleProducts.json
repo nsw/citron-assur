@@ -1,0 +1,488 @@
+{
+  "assurance_vie": {
+    "id": "AV_001",
+    "nom_commercial": "Netissima Plus",
+    "assureur": "Generali",
+    "date_creation": "2024-01-15",
+    "date_fin_commercialisation": null,
+    "statut": "actif",
+    "distributeurs_autorises": ["banques", "courtiers", "cgp"],
+    
+    "parametres_entree": {
+      "versement_initial_minimum": 1000,
+      "versements_programmes_minimum": 50,
+      "versements_libres_minimum": 300,
+      "age_minimum_souscripteur": 0,
+      "age_maximum_souscripteur": 85,
+      "montant_maximum_autorise": 5000000
+    },
+    
+    "frais": {
+      "frais_entree": {
+        "type": "pourcentage",
+        "taux": 0.0,
+        "maximum": 5.0
+      },
+      "frais_gestion_annuels": {
+        "fonds_euros": 0.6,
+        "unites_compte": 0.85
+      },
+      "frais_arbitrage": {
+        "nombre_gratuits_annuels": 6,
+        "cout_supplementaire": 35.0
+      },
+      "frais_sortie": {
+        "avant_8_ans": 0.0,
+        "apres_8_ans": 0.0
+      }
+    },
+    
+    "supports_investissement": {
+      "fonds_euros": [
+        {
+          "id": "FE_GEN_001",
+          "nom": "Generali Netissima Euro",
+          "type": "nouvelle_generation",
+          "garantie_capital": 100,
+          "taux_technique": 0.0,
+          "taux_servi_2024": 2.8,
+          "participation_benefices_minimum": 85,
+          "composition": {
+            "obligations": 87.5,
+            "actions": 7.5,
+            "immobilier": 3.0,
+            "tresorerie": 2.0
+          },
+          "allocation_min": 0,
+          "allocation_max": 100
+        }
+      ],
+      "unites_compte": [
+        {
+          "id": "UC_001",
+          "nom": "Carmignac Patrimoine",
+          "type": "OPCVM",
+          "classification_risque": "SRI_4",
+          "volatilite": 8.5,
+          "frais_gestion_UC": 1.68,
+          "devise": "EUR",
+          "categorie": "mixte_defensif",
+          "allocation_min": 0,
+          "allocation_max": 100
+        },
+        {
+          "id": "UC_002", 
+          "nom": "SCPI Corum Origin",
+          "type": "SCPI",
+          "classification_risque": "SRI_3",
+          "frais_entree_UC": 10.0,
+          "frais_gestion_UC": 9.5,
+          "taux_distribution": 5.2,
+          "allocation_min": 0,
+          "allocation_max": 30
+        }
+      ],
+      "eurocroissance": [
+        {
+          "id": "EC_001",
+          "nom": "Generali Euro Croissance",
+          "duree_minimum": 8,
+          "garantie_echeance": 100,
+          "allocation_initiale": {
+            "provision_mathematique": 70,
+            "provision_diversification": 30
+          },
+          "allocation_finale": {
+            "provision_mathematique": 90,
+            "provision_diversification": 10
+          }
+        }
+      ]
+    },
+    
+    "garanties": {
+      "garantie_deces": {
+        "capital_minimum": 1000,
+        "capital_maximum": 2000000,
+        "table_mortalite": "TH00-02_TF00-02",
+        "questionnaire_medical": {
+          "montant_libre_examen": 300000,
+          "surprimes": {
+            "age": {"40-50": 1.0, "50-60": 1.5, "60+": 2.0},
+            "sante": {"diabete": 1.25, "cardiaque": 2.0},
+            "profession": {"bureau": 1.0, "risque": 3.0}
+          }
+        }
+      },
+      "garantie_plancher": {
+        "disponible": true,
+        "cout_points_base": {"30_ans": 15, "50_ans": 75, "65_ans": 180},
+        "capital_sous_risque": "capital_garanti - valeur_liquidative"
+      }
+    },
+    
+    "beneficiaires": {
+      "clause_standard": "Mon conjoint non séparé de corps ou la personne avec laquelle j'ai conclu un Pacs en vigueur à la date du décès, à défaut mes enfants nés ou à naître, vivants ou représentés, par parts égales, à défaut mes héritiers",
+      "clause_personnalisee": true,
+      "acceptation_possible": true,
+      "demembrement_possible": true
+    },
+    
+    "fiscalite": {
+      "article_990_I": {
+        "versements_avant_70_ans": true,
+        "abattement_par_beneficiaire": 152500,
+        "taxation": {"0-700000": 20, "700000+": 31.25}
+      },
+      "article_757_B": {
+        "versements_apres_70_ans": true,
+        "abattement_global": 30500,
+        "bareme": "successoral_classique"
+      }
+    },
+    
+    "duree_sortie": {
+      "duree_minimum_recommandee": 8,
+      "rachat_partiel": true,
+      "rachat_total": true,
+      "sortie_rente": true,
+      "penalites_rachat": {
+        "avant_8_ans": "prelevement_forfaitaire_liberatoire"
+      }
+    }
+  },
+
+  "per_individuel": {
+    "id": "PER_001",
+    "nom_commercial": "Linxea PER",
+    "gestionnaire": "Suravenir",
+    "date_creation": "2019-10-01",
+    "statut": "actif",
+    
+    "parametres_entree": {
+      "versement_initial_minimum": 100,
+      "versements_programmes_minimum": 50,
+      "versements_libres_minimum": 100,
+      "age_minimum_souscripteur": 18,
+      "age_maximum_souscripteur": 75,
+      "montant_maximum_autorise": 10000000
+    },
+    
+    "compartiments": {
+      "compartiment_1": {
+        "nom": "versements_volontaires",
+        "alimentation": ["versements_deductibles", "versements_non_deductibles"],
+        "sortie": ["capital", "rente", "mixte"]
+      },
+      "compartiment_2": {
+        "nom": "epargne_salariale", 
+        "alimentation": ["participation", "interessement", "abondement", "ppv", "cet"],
+        "sortie": ["capital", "rente", "mixte"]
+      },
+      "compartiment_3": {
+        "nom": "versements_obligatoires",
+        "alimentation": [],
+        "sortie": ["rente_uniquement"]
+      }
+    },
+    
+    "deductibilite_fiscale": {
+      "salaries": {
+        "formule": "MAX(10% × revenus_N-1, 10% × PASS_N-1)",
+        "pass_2024": 46368,
+        "minimum": 4637,
+        "maximum": 37094
+      },
+      "tns": {
+        "formule": "MAX([10% × benefice_N] + [15% × (benefice_N - PASS_N) si > PASS_N], 10% × PASS_N)",
+        "pass_2025": 47100,
+        "minimum": 4710,
+        "maximum": 87135
+      },
+      "reports_plafonds": {
+        "duree": 3,
+        "cumul_possible": true
+      }
+    },
+    
+    "frais": {
+      "frais_adhesion": 50,
+      "frais_versement": 0.0,
+      "frais_gestion_annuels": {
+        "fonds_euros": 0.5,
+        "unites_compte": 0.75,
+        "gestion_pilotee_surcout": 0.3
+      },
+      "frais_arbitrage": {
+        "nombre_gratuits": 3,
+        "cout_supplementaire": 30
+      },
+      "frais_transfert": {
+        "avant_5_ans": 1.0,
+        "apres_5_ans": 0.0
+      },
+      "frais_arrerages_rente": 3.0
+    },
+    
+    "supports_investissement": {
+      "fonds_euros": [
+        {
+          "id": "FE_PER_001",
+          "nom": "Suravenir Rendement",
+          "taux_servi_2024": 2.4,
+          "allocation_max": 100
+        }
+      ],
+      "gestion_pilotee": {
+        "profils": ["defensif", "equilibre", "dynamique", "offensif"],
+        "reequilibrage_automatique": true,
+        "horizon_temporel": {"jeune": "100% actions", "proche_retraite": "20% actions"}
+      }
+    },
+    
+    "sortie_retraite": {
+      "age_minimum": 62,
+      "deblocages_anticipes": [
+        "invalidite_2e_3e_categorie",
+        "deces_conjoint_partenaire", 
+        "expiration_droits_chomage",
+        "surendettement",
+        "liquidation_judiciaire_tns",
+        "acquisition_residence_principale"
+      ],
+      "modalites_sortie": {
+        "capital": {"disponible": true, "fiscalite": "bareme_progressif"},
+        "rente": {"disponible": true, "table_mortalite": "TGHF05"},
+        "mixte": {"capital_max": 80, "rente_min": 20}
+      }
+    },
+    
+    "transferts": {
+      "entrants": ["PERP", "Madelin", "Prefon", "ancien_article_83"],
+      "sortants": ["PER_homologue"],
+      "portabilite": true,
+      "delais_maximum": 15
+    }
+  },
+
+  "contrat_madelin": {
+    "id": "MAD_001", 
+    "nom_commercial": "Madelin Retraite Pro",
+    "assureur": "AG2R La Mondiale",
+    "beneficiaires": ["tns", "professions_liberales"],
+    
+    "parametres_entree": {
+      "versement_initial_minimum": 500,
+      "versements_programmes_minimum": 100,
+      "age_minimum": 18,
+      "age_maximum": 70,
+      "justificatifs_requis": ["declaration_tns", "kbis", "revenus_n-1_n-2"]
+    },
+    
+    "deductibilite": {
+      "retraite": {
+        "formule": "identique_PER_TNS",
+        "maximum_2025": 87135
+      },
+      "prevoyance_sante": {
+        "formule": "MIN(3.75% × benefice + 7% × PASS, 3% × 8 × PASS)",
+        "maximum_2025": 11304
+      },
+      "perte_emploi": {
+        "formule": "MAX(1.875% × benefice, 2.5% × PASS)",
+        "minimum_2025": 1177
+      },
+      "neutralisation_mad15": true
+    },
+    
+    "frais": {
+      "frais_entree": 2.5,
+      "frais_gestion": 1.2,
+      "frais_transfert": 1.0
+    },
+    
+    "rente_obligatoire": {
+      "sortie_exclusive": "rente_viagere",
+      "age_liquidation_minimum": 60,
+      "taux_conversion": "table_TGHF05", 
+      "reversion": {
+        "taux_possible": [60, 80, 100],
+        "reduction_rente": {"60%": 8, "80%": 15, "100%": 20}
+      },
+      "indexation": "IPC_INSEE"
+    },
+    
+    "garanties": {
+      "garantie_deces": {
+        "avant_liquidation": "remboursement_cotisations_revalorisees",
+        "apres_liquidation": "rente_reversion_si_prevue"
+      }
+    }
+  },
+
+  "contrat_capitalisation": {
+    "id": "CAP_001",
+    "nom_commercial": "Placement Capitalisation Premium",
+    "assureur": "Axa",
+    
+    "parametres_entree": {
+      "versement_minimum": 10000,
+      "duree_minimale": null,
+      "age_minimum": 18,
+      "personnes_morales": true
+    },
+    
+    "fiscalite_specifique": {
+      "regime": "plus_values_mobilieres",
+      "seuils_imposition": {
+        "retrait_annuel": 4600,
+        "retrait_annuel_couple": 9200
+      },
+      "abattement_duree": {
+        "2_ans": 0,
+        "8_ans": 4600,
+        "couple_8_ans": 9200
+      },
+      "prelevement_sociaux": 17.2
+    },
+    
+    "transmission": {
+      "droits_succession": "applicables_pleins_droits",
+      "demembrement_possible": true,
+      "donation_possible": true,
+      "ifi_applicable": true
+    },
+    
+    "supports": {
+      "identiques_assurance_vie": true,
+      "gestion_libre": true,
+      "gestion_pilotee": true
+    },
+    
+    "frais": {
+      "similaires_assurance_vie": true,
+      "frais_transfert": 0.5
+    }
+  },
+
+  "prevoyance_mixte": {
+    "id": "PM_001",
+    "nom_commercial": "Protection Famille Plus",
+    "assureur": "Malakoff Humanis",
+    
+    "garanties_deces": {
+      "capital_fixe": {
+        "montant": 100000,
+        "evolution": "constant"
+      },
+      "capital_variable": {
+        "type": "decroissant_lineaire",
+        "montant_initial": 200000,
+        "duree": 20
+      },
+      "questionnaire_medical": {
+        "obligatoire_si": "> 100000",
+        "examens_medicaux_si": "> 500000"
+      },
+      "exclusions": ["suicide_1e_annee", "guerre", "sports_extremes"],
+      "table_mortalite": "TH00-02_TF00-02"
+    },
+    
+    "contre_assurance": {
+      "valeur_rachat": {
+        "progression": "croissante",
+        "table_garanties": true,
+        "minimum_garanti": 85
+      },
+      "avance_sur_contrat": {
+        "disponible": true,
+        "pourcentage_max": 80,
+        "taux_interet": "TME + 2%"
+      }
+    },
+    
+    "primes": {
+      "mode_paiement": ["annuel", "semestriel", "trimestriel", "mensuel"],
+      "majoration_fractionnement": {"semestriel": 3, "trimestriel": 5, "mensuel": 8},
+      "revalorisation": "possible_selon_benefices"
+    },
+    
+    "duree": {
+      "temporaire": {"duree_max": 30},
+      "vie_entiere": true,
+      "transformation_possible": true
+    }
+  },
+
+  "rente_viagere": {
+    "id": "RV_001",
+    "nom_commercial": "Rente Sérénité",
+    "assureur": "CNP Assurances",
+    
+    "parametres_calcul": {
+      "capital_constitutif_minimum": 15000,
+      "table_mortalite": "TGHF05",
+      "taux_technique_maximum": "60% × TME_6_mois",
+      "periodicite": ["mensuelle", "trimestrielle", "annuelle"]
+    },
+    
+    "options_reversion": {
+      "sans_reversion": {
+        "rente_maximale": true,
+        "arret_deces": true
+      },
+      "reversion_60": {
+        "reduction_rente": 8,
+        "beneficiaire": "conjoint"
+      },
+      "reversion_80": {
+        "reduction_rente": 15,
+        "beneficiaire": "conjoint"
+      },
+      "reversion_100": {
+        "reduction_rente": 20,
+        "beneficiaire": "conjoint"
+      }
+    },
+    
+    "indexation": {
+      "type": "IPC_INSEE",
+      "clause_non_diminution": true,
+      "plafond_revalorisation": 3.0
+    },
+    
+    "garanties_complementaires": {
+      "arrerages_echus": {
+        "nombre_mois": 12,
+        "beneficiaire": "heritiers"
+      },
+      "capital_deces": {
+        "disponible": true,
+        "montant_max": "50% × capital_constitutif"
+      }
+    },
+    
+    "fiscalite": {
+      "fraction_imposable": {
+        "moins_50_ans": 70,
+        "50_59_ans": 50,
+        "60_69_ans": 40,
+        "70_ans_plus": 30
+      },
+      "prelevement_source": 0.0
+    },
+    
+    "exemple_calcul": {
+      "homme_67_ans_200k": {
+        "rente_simple": 13158,
+        "rente_reversion_60": 10870,
+        "impact_reversion": -17
+      },
+      "couple_67_65_ans_200k": {
+        "rente_conjointe": 9840,
+        "reversion_60": 8560,
+        "duree_esperance": 25
+      }
+    }
+  }
+}

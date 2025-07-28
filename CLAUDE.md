@@ -1,0 +1,1 @@
+- perform git commit on each change
