@@ -1,0 +1,159 @@
+<div class="container">
+  <div class="header">
+    <h1>🏦 Simulateur Produits d'Assurance</h1>
+    <p>Calculez et comparez vos options d'épargne et de prévoyance</p>
+  </div>
+
+  <!-- Step Indicator -->
+  <div class="step-indicator">
+    <div class="step" [class.active]="currentStep === 1" [class.completed]="currentStep > 1">
+      <div class="step-number">1</div>
+      <span>Produit</span>
+    </div>
+    <div class="step-divider"></div>
+    <div class="step" [class.active]="currentStep === 2" [class.completed]="currentStep > 2">
+      <div class="step-number">2</div>
+      <span>Paramètres</span>
+    </div>
+    <div class="step-divider"></div>
+    <div class="step" [class.active]="currentStep === 3">
+      <div class="step-number">3</div>
+      <span>Résultats</span>
+    </div>
+  </div>
+
+  <!-- Step 1: Product Selection -->
+  <div *ngIf="currentStep === 1" class="card">
+    <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">Choisissez votre produit d'assurance</h2>
+    
+    <div class="product-grid">
+      <div class="product-card" 
+           *ngFor="let product of products"
+           [class.selected]="selectedProduct?.id === product.id"
+           (click)="selectProduct(product)">
+        <div class="product-icon">{{ product.icon }}</div>
+        <div class="product-title">{{ product.name }}</div>
+        <div class="product-description">{{ product.description }}</div>
+        <ul class="product-features">
+          <li *ngFor="let feature of product.features">{{ feature }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="text-align: center;">
+      <button class="btn" (click)="nextStep()" [disabled]="!canProceedToParams()">
+        Continuer avec ce produit
+      </button>
+    </div>
+  </div>
+
+  <!-- Step 2: Parameters Form -->
+  <div *ngIf="currentStep === 2" class="card">
+    <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">Vos informations personnelles</h2>
+    
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="age">
+          Âge 
+          <span class="info-tooltip">ℹ️<span class="tooltip-text">Votre âge actuel pour le calcul des primes et rendements</span></span>
+        </label>
+        <input type="number" id="age" [(ngModel)]="params.age" min="18" max="85" required>
+      </div>
+
+      <div class="form-group">
+        <label for="sexe">Sexe</label>
+        <select id="sexe" [(ngModel)]="params.sexe" required>
+          <option value="H">Homme</option>
+          <option value="F">Femme</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="statut">Statut professionnel</label>
+        <select id="statut" [(ngModel)]="params.statut" required>
+          <option value="salarie">Salarié</option>
+          <option value="tns">Travailleur Non Salarié</option>
+          <option value="retraite">Retraité</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="revenus">
+          Revenus annuels (€) 
+          <span class="info-tooltip">ℹ️<span class="tooltip-text">Vos revenus pour le calcul des plafonds de déduction</span></span>
+        </label>
+        <input type="number" id="revenus" [(ngModel)]="params.revenus" min="0" step="1000">
+      </div>
+
+      <div class="form-group">
+        <label for="capital">Capital à investir (€)</label>
+        <input type="number" id="capital" [(ngModel)]="params.capital" min="100" step="100" required>
+      </div>
+
+      <div class="form-group">
+        <label for="versementsMensuels">Versements mensuels (€)</label>
+        <input type="number" id="versementsMensuels" [(ngModel)]="params.versementsMensuels" min="0" step="50">
+      </div>
+
+      <!-- Specific fields -->
+      <div class="form-group" *ngFor="let field of productFields">
+        <label [for]="field.id">{{ field.label }}</label>
+        
+        <input *ngIf="field.type === 'number'"
+               [type]="field.type"
+               [id]="field.id"
+               [(ngModel)]="specificFields[field.id]"
+               [min]="field.min"
+               [max]="field.max"
+               [step]="field.step"
+               [required]="field.required">
+               
+        <select *ngIf="field.type === 'select'"
+                [id]="field.id"
+                [(ngModel)]="specificFields[field.id]"
+                [required]="field.required">
+          <option *ngFor="let option of field.options" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div style="text-align: center;">
+      <button class="btn" (click)="prevStep()" style="background: #666;">Retour</button>
+      <button class="btn" (click)="calculate()" style="margin-left: 20px;">Calculer</button>
+    </div>
+  </div>
+
+  <!-- Step 3: Results -->
+  <div *ngIf="currentStep === 3 && simulationResult" class="results-section-container">
+    <div class="highlight-box">
+      <h3>{{ simulationResult.type }}</h3>
+      <div class="amount">{{ formatCurrency(getMainResultAmount()) }}</div>
+      <p>{{ getMainResultLabel() }}</p>
+    </div>
+
+    <div class="results-section" [class.single-column]="!hasChart()">
+      <div class="chart-container" *ngIf="hasChart()">
+        <h3 style="text-align: center; margin-bottom: 20px;">Évolution de votre épargne</h3>
+        <canvas baseChart
+                [data]="chartData"
+                [options]="chartOptions"
+                [type]="chartType">
+        </canvas>
+      </div>
+
+      <div class="summary-card">
+        <h3 style="margin-bottom: 20px; text-align: center;">Résumé détaillé</h3>
+        <div class="summary-item" *ngFor="let item of simulationResult.summary">
+          <span class="summary-label">{{ item.label }}</span>
+          <span class="summary-value">{{ item.value }}</span>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center;">
+          <button class="btn" (click)="resetSimulation()">Nouvelle simulation</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

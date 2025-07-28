@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulateur Produits d'Assurance</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-number {
+            background: #4CAF50;
+            transform: scale(1.1);
+        }
+
+        .step.completed .step-number {
+            background: #2196F3;
+        }
+
+        .step-divider {
+            width: 80px;
+            height: 2px;
+            background: rgba(255,255,255,0.3);
+            margin: 0 20px;
+            align-self: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .product-card.selected {
+            border-color: #4CAF50;
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.3);
+        }
+
+        .product-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .product-description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .product-features {
+            list-style: none;
+            text-align: left;
+        }
+
+        .product-features li {
+            padding: 5px 0;
+            color: #555;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .product-features li::before {
+            content: '✓';
+            color: #4CAF50;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .results-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            height: 400px;
+            position: relative;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .summary-value {
+            font-weight: 700;
+            color: #4CAF50;
+            font-size: 1.1rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .highlight-box h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .highlight-box .amount {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error-message {
+            background: #f44336;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .info-tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            margin-left: 5px;
+            color: #4CAF50;
+        }
+
+        .info-tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .info-tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .results-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step-divider {
+                width: 40px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏦 Simulateur Produits d'Assurance</h1>
+            <p>Calculez et comparez vos options d'épargne et de prévoyance</p>
+        </div>
+
+        <!-- Indicateur d'étapes -->
+        <div class="step-indicator">
+            <div class="step active" id="step1">
+                <div class="step-number">1</div>
+                <span>Produit</span>
+            </div>
+            <div class="step-divider"></div>
+            <div class="step" id="step2">
+                <div class="step-number">2</div>
+                <span>Paramètres</span>
+            </div>
+            <div class="step-divider"></div>
+            <div class="step" id="step3">
+                <div class="step-number">3</div>
+                <span>Résultats</span>
+            </div>
+        </div>
+
+        <!-- Étape 1: Sélection du produit -->
+        <div id="productSelection" class="card">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">Choisissez votre produit d'assurance</h2>
+            
+            <div class="product-grid">
+                <div class="product-card" data-product="assurance-vie">
+                    <div class="product-icon">💰</div>
+                    <div class="product-title">Assurance-Vie</div>
+                    <div class="product-description">Épargne flexible avec avantages fiscaux et transmission optimisée</div>
+                    <ul class="product-features">
+                        <li>Fonds euros garantis</li>
+                        <li>Unités de compte</li>
+                        <li>Fiscalité avantageuse</li>
+                        <li>Transmission facilitée</li>
+                    </ul>
+                </div>
+
+                <div class="product-card" data-product="per">
+                    <div class="product-icon">🏦</div>
+                    <div class="product-title">PER Individuel</div>
+                    <div class="product-description">Plan d'épargne retraite avec déduction fiscale immédiate</div>
+                    <ul class="product-features">
+                        <li>Déduction fiscale</li>
+                        <li>Épargne retraite</li>
+                        <li>Sortie en rente/capital</li>
+                        <li>Transferts possibles</li>
+                    </ul>
+                </div>
+
+                <div class="product-card" data-product="madelin">
+                    <div class="product-icon">👨‍💼</div>
+                    <div class="product-title">Contrat Madelin</div>
+                    <div class="product-description">Retraite supplémentaire dédiée aux travailleurs non-salariés</div>
+                    <ul class="product-features">
+                        <li>Spécial TNS</li>
+                        <li>Plafonds majorés</li>
+                        <li>Rente viagère</li>
+                        <li>Déduction maximale</li>
+                    </ul>
+                </div>
+
+                <div class="product-card" data-product="rente-viagere">
+                    <div class="product-icon">📈</div>
+                    <div class="product-title">Rente Viagère</div>
+                    <div class="product-description">Revenus garantis à vie avec options de réversion</div>
+                    <ul class="product-features">
+                        <li>Revenus à vie</li>
+                        <li>Réversion possible</li>
+                        <li>Indexation IPC</li>
+                        <li>Sécurité maximale</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="btn" onclick="nextStep()" id="nextToParams" disabled>Continuer avec ce produit</button>
+            </div>
+        </div>
+
+        <!-- Étape 2: Paramètres de l'assuré -->
+        <div id="parameterForm" class="card hidden">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">Vos informations personnelles</h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="age">Âge <span class="info-tooltip">ℹ️<span class="tooltip-text">Votre âge actuel pour le calcul des primes et rendements</span></span></label>
+                    <input type="number" id="age" min="18" max="85" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="sexe">Sexe</label>
+                    <select id="sexe" required>
+                        <option value="">Sélectionnez</option>
+                        <option value="H">Homme</option>
+                        <option value="F">Femme</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="statut">Statut professionnel</label>
+                    <select id="statut" required>
+                        <option value="">Sélectionnez</option>
+                        <option value="salarie">Salarié</option>
+                        <option value="tns">Travailleur Non Salarié</option>
+                        <option value="retraite">Retraité</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="revenus">Revenus annuels (€) <span class="info-tooltip">ℹ️<span class="tooltip-text">Vos revenus pour le calcul des plafonds de déduction</span></span></label>
+                    <input type="number" id="revenus" min="0" step="1000">
+                </div>
+
+                <div class="form-group">
+                    <label for="capital">Capital à investir (€)</label>
+                    <input type="number" id="capital" min="100" step="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="versementsMensuels">Versements mensuels (€)</label>
+                    <input type="number" id="versementsMensuels" min="0" step="50">
+                </div>
+
+                <!-- Champs spécifiques selon le produit -->
+                <div id="specificFields"></div>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="btn" onclick="prevStep()" style="background: #666;">Retour</button>
+                <button class="btn" onclick="calculate()" id="calculateBtn" style="margin-left: 20px;">Calculer</button>
+            </div>
+        </div>
+
+        <!-- Étape 3: Résultats -->
+        <div id="resultsSection" class="hidden">
+            <div class="highlight-box">
+                <h3 id="resultTitle">Résultats de votre simulation</h3>
+                <div class="amount" id="mainResult">€ 0</div>
+                <p id="resultSubtitle">Montant estimé</p>
+            </div>
+
+            <div class="results-section">
+                <div class="chart-container">
+                    <h3 style="text-align: center; margin-bottom: 20px;">Évolution de votre épargne</h3>
+                    <canvas id="evolutionChart"></canvas>
+                </div>
+
+                <div class="summary-card">
+                    <h3 style="margin-bottom: 20px; text-align: center;">Résumé détaillé</h3>
+                    <div id="summaryContent"></div>
+                    
+                    <div style="margin-top: 30px; text-align: center;">
+                        <button class="btn" onclick="resetSimulation()">Nouvelle simulation</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedProduct = null;
+        let currentStep = 1;
+        let chart = null;
+
+        // Configuration des produits
+        const productConfig = {
+            'assurance-vie': {
+                name: 'Assurance-Vie',
+                fields: [
+                    { id: 'dureeInvestissement', label: 'Durée d\'investissement (années)', type: 'number', min: 1, max: 50, required: true },
+                    { id: 'tauxRendement', label: 'Taux de rendement espéré (%)', type: 'number', min: 0, max: 10, step: 0.1, value: 2.5 }
+                ]
+            },
+            'per': {
+                name: 'PER Individuel',
+                fields: [
+                    { id: 'ageRetraite', label: 'Âge de départ en retraite', type: 'number', min: 60, max: 70, value: 62, required: true },
+                    { id: 'tauxRendement', label: 'Taux de rendement espéré (%)', type: 'number', min: 0, max: 8, step: 0.1, value: 3.0 }
+                ]
+            },
+            'madelin': {
+                name: 'Contrat Madelin',
+                fields: [
+                    { id: 'ageRetraite', label: 'Âge de départ en retraite', type: 'number', min: 60, max: 70, value: 62, required: true },
+                    { id: 'tauxRendement', label: 'Taux de rendement espéré (%)', type: 'number', min: 0, max: 8, step: 0.1, value: 3.0 }
+                ]
+            },
+            'rente-viagere': {
+                name: 'Rente Viagère',
+                fields: [
+                    { id: 'tauxReversion', label: 'Taux de réversion (%)', type: 'select', options: [
+                        { value: 0, label: 'Sans réversion' },
+                        { value: 60, label: '60%' },
+                        { value: 80, label: '80%' },
+                        { value: 100, label: '100%' }
+                    ], value: 0 },
+                    { id: 'ageConjoint', label: 'Âge du conjoint (si réversion)', type: 'number', min: 18, max: 100 }
+                ]
+            }
+        };
+
+        // Sélection du produit
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Retirer la sélection précédente
+                document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+                
+                // Sélectionner le nouveau produit
+                this.classList.add('selected');
+                selectedProduct = this.dataset.product;
+                
+                // Activer le bouton suivant
+                document.getElementById('nextToParams').disabled = false;
+                
+                // Générer les champs spécifiques
+                generateSpecificFields();
+            });
+        });
+
+        function generateSpecificFields() {
+            const container = document.getElementById('specificFields');
+            container.innerHTML = '';
+            
+            if (selectedProduct && productConfig[selectedProduct]) {
+                const fields = productConfig[selectedProduct].fields;
+                
+                fields.forEach(field => {
+                    const formGroup = document.createElement('div');
+                    formGroup.className = 'form-group';
+                    
+                    const label = document.createElement('label');
+                    label.setAttribute('for', field.id);
+                    label.textContent = field.label;
+                    
+                    let input;
+                    if (field.type === 'select') {
+                        input = document.createElement('select');
+                        field.options.forEach(option => {
+                            const optionElement = document.createElement('option');
+                            optionElement.value = option.value;
+                            optionElement.textContent = option.label;
+                            if (option.value == field.value) {
+                                optionElement.selected = true;
+                            }
+                            input.appendChild(optionElement);
+                        });
+                    } else {
+                        input = document.createElement('input');
+                        input.type = field.type;
+                        if (field.min !== undefined) input.min = field.min;
+                        if (field.max !== undefined) input.max = field.max;
+                        if (field.step !== undefined) input.step = field.step;
+                        if (field.value !== undefined) input.value = field.value;
+                    }
+                    
+                    input.id = field.id;
+                    if (field.required) input.required = true;
+                    
+                    formGroup.appendChild(label);
+                    formGroup.appendChild(input);
+                    container.appendChild(formGroup);
+                });
+            }
+        }
+
+        function nextStep() {
+            if (currentStep === 1 && selectedProduct) {
+                document.getElementById('productSelection').classList.add('hidden');
+                document.getElementById('parameterForm').classList.remove('hidden');
+                updateStepIndicator(2);
+                currentStep = 2;
+            }
+        }
+
+        function prevStep() {
+            if (currentStep === 2) {
+                document.getElementById('parameterForm').classList.add('hidden');
+                document.getElementById('productSelection').classList.remove('hidden');
+                updateStepIndicator(1);
+                currentStep = 1;
+            }
+        }
+
+        function updateStepIndicator(step) {
+            document.querySelectorAll('.step').forEach((s, index) => {
+                s.classList.remove('active', 'completed');
+                if (index + 1 < step) {
+                    s.classList.add('completed');
+                } else if (index + 1 === step) {
+                    s.classList.add('active');
+                }
+            });
+        }
+
+        function calculate() {
+            try {
+                // Récupérer les valeurs du formulaire
+                const age = parseInt(document.getElementById('age').value);
+                const sexe = document.getElementById('sexe').value;
+                const statut = document.getElementById('statut').value;
+                const revenus = parseFloat(document.getElementById('revenus').value) || 0;
+                const capital = parseFloat(document.getElementById('capital').value);
+                const versementsMensuels = parseFloat(document.getElementById('versementsMensuels').value) || 0;
+
+                // Validation
+                if (!age || !sexe || !statut || !capital) {
+                    throw new Error('Veuillez remplir tous les champs obligatoires');
+                }
+
+                // Calculer selon le produit sélectionné
+                let results;
+                switch (selectedProduct) {
+                    case 'assurance-vie':
+                        results = calculateAssuranceVie(age, capital, versementsMensuels);
+                        break;
+                    case 'per':
+                        results = calculatePER(age, statut, revenus, capital, versementsMensuels);
+                        break;
+                    case 'madelin':
+                        results = calculateMadelin(age, revenus, capital, versementsMensuels);
+                        break;
+                    case 'rente-viagere':
+                        results = calculateRenteViagere(age, sexe, capital);
+                        break;
+                    default:
+                        throw new Error('Produit non sélectionné');
+                }
+
+                // Afficher les résultats
+                displayResults(results);
+                
+                // Passer à l'étape 3
+                document.getElementById('parameterForm').classList.add('hidden');
+                document.getElementById('resultsSection').classList.remove('hidden');
+                updateStepIndicator(3);
+                currentStep = 3;
+
+            } catch (error) {
+                alert('Erreur: ' + error.message);
+            }
+        }
+
+        function calculateAssuranceVie(age, capital, versementsMensuels) {
+            const duree = parseInt(document.getElementById('dureeInvestissement').value);
+            const tauxRendement = parseFloat(document.getElementById('tauxRendement').value) / 100;
+            
+            const versementsAnnuels = versementsMensuels * 12;
+            const capitalFinal = capital * Math.pow(1 + tauxRendement, duree) + 
+                                versementsAnnuels * (Math.pow(1 + tauxRendement, duree) - 1) / tauxRendement;
+            
+            const totalVerse = capital + versementsAnnuels * duree;
+            const plusValue = capitalFinal - totalVerse;
+
+            // Génération des données pour le graphique
+            const chartData = [];
+            let capitalCourant = capital;
+            for (let annee = 0; annee <= duree; annee++) {
+                chartData.push({
+                    annee: annee,
+                    capital: Math.round(capitalCourant),
+                    verse: capital + versementsAnnuels * annee
+                });
+                capitalCourant = capitalCourant * (1 + tauxRendement) + versementsAnnuels;
+            }
+
+            return {
+                type: 'Assurance-Vie',
+                capitalFinal: Math.round(capitalFinal),
+                totalVerse: Math.round(totalVerse),
+                plusValue: Math.round(plusValue),
+                rendementAnnuel: tauxRendement * 100,
+                duree: duree,
+                chartData: chartData,
+                summary: [
+                    { label: 'Capital initial', value: formatCurrency(capital) },
+                    { label: 'Versements mensuels', value: formatCurrency(versementsMensuels) },
+                    { label: 'Total versé', value: formatCurrency(totalVerse) },
+                    { label: 'Plus-value brute', value: formatCurrency(plusValue) },
+                    { label: 'Rendement annuel', value: tauxRendement.toFixed(2) + '%' },
+                    { label: 'Durée', value: duree + ' ans' }
+                ]
+            };
+        }
+
+        function calculatePER(age, statut, revenus, capital, versementsMensuels) {
+            const ageRetraite = parseInt(document.getElementById('ageRetraite').value);
+            const tauxRendement = parseFloat(document.getElementById('tauxRendement').value) / 100;
+            const duree = ageRetraite - age;
+            
+            // Calcul du plafond de déduction
+            const pass2025 = 47100;
+            let plafondDeduction;
+            if (statut === 'salarie') {
+                plafondDeduction = Math.max(0.10 * revenus, 0.10 * pass2025);
+            } else if (statut === 'tns') {
+                const plafondBase = 0.10 * revenus;
+                const plafondSupplementaire = revenus > pass2025 ? 0.15 * (revenus - pass2025) : 0;
+                plafondDeduction = Math.max(plafondBase + plafondSupplementaire, 0.10 * pass2025);
+            } else {
+                plafondDeduction = 0;
+            }
+
+            const versementsAnnuels = versementsMensuels * 12;
+            const economieImpot = Math.min(versementsAnnuels, plafondDeduction) * 0.30; // TMI moyen 30%
+            
+            const capitalFinal = capital * Math.pow(1 + tauxRendement, duree) + 
+                                versementsAnnuels * (Math.pow(1 + tauxRendement, duree) - 1) / tauxRendement;
+
+            // Calcul de la rente
+            const coefficientActuariel = calculateActuarialCoefficient(ageRetraite, 'H', 0.015);
+            const renteAnnuelle = capitalFinal / coefficientActuariel;
+
+            const chartData = [];
+            let capitalCourant = capital;
+            for (let annee = 0; annee <= duree; annee++) {
+                chartData.push({
+                    annee: annee,
+                    capital: Math.round(capitalCourant),
+                    verse: capital + versementsAnnuels * annee
+                });
+                capitalCourant = capitalCourant * (1 + tauxRendement) + versementsAnnuels;
+            }
+
+            return {
+                type: 'PER Individuel',
+                capitalFinal: Math.round(capitalFinal),
+                renteAnnuelle: Math.round(renteAnnuelle),
+                plafondDeduction: Math.round(plafondDeduction),
+                economieImpot: Math.round(economieImpot),
+                chartData: chartData,
+                summary: [
+                    { label: 'Capital à la retraite', value: formatCurrency(capitalFinal) },
+                    { label: 'Rente annuelle estimée', value: formatCurrency(renteAnnuelle) },
+                    { label: 'Plafond de déduction', value: formatCurrency(plafondDeduction) },
+                    { label: 'Économie d\'impôt annuelle', value: formatCurrency(economieImpot) },
+                    { label: 'Âge de départ', value: ageRetraite + ' ans' },
+                    { label: 'Durée d\'épargne', value: duree + ' ans' }
+                ]
+            };
+        }
+
+        function calculateMadelin(age, revenus, capital, versementsMensuels) {
+            const ageRetraite = parseInt(document.getElementById('ageRetraite').value);
+            const tauxRendement = parseFloat(document.getElementById('tauxRendement').value) / 100;
+            const duree = ageRetraite - age;
+            
+            // Calcul du plafond Madelin (identique PER TNS)
+            const pass2025 = 47100;
+            const plafondBase = 0.10 * revenus;
+            const plafondSupplementaire = revenus > pass2025 ? 0.15 * (revenus - pass2025) : 0;
+            const plafondDeduction = Math.max(plafondBase + plafondSupplementaire, 0.10 * pass2025);
+
+            const versementsAnnuels = versementsMensuels * 12;
+            const economieImpot = Math.min(versementsAnnuels, plafondDeduction) * 0.35; // TMI TNS moyen
+            
+            const capitalFinal = capital * Math.pow(1 + tauxRendement, duree) + 
+                                versementsAnnuels * (Math.pow(1 + tauxRendement, duree) - 1) / tauxRendement;
+
+            const coefficientActuariel = calculateActuarialCoefficient(ageRetraite, 'H', 0.015);
+            const renteAnnuelle = capitalFinal / coefficientActuariel;
+
+            const chartData = [];
+            let capitalCourant = capital;
+            for (let annee = 0; annee <= duree; annee++) {
+                chartData.push({
+                    annee: annee,
+                    capital: Math.round(capitalCourant),
+                    verse: capital + versementsAnnuels * annee
+                });
+                capitalCourant = capitalCourant * (1 + tauxRendement) + versementsAnnuels;
+            }
+
+            return {
+                type: 'Contrat Madelin',
+                capitalFinal: Math.round(capitalFinal),
+                renteAnnuelle: Math.round(renteAnnuelle),
+                plafondDeduction: Math.round(plafondDeduction),
+                economieImpot: Math.round(economieImpot),
+                chartData: chartData,
+                summary: [
+                    { label: 'Capital à la retraite', value: formatCurrency(capitalFinal) },
+                    { label: 'Rente viagère annuelle', value: formatCurrency(renteAnnuelle) },
+                    { label: 'Plafond Madelin', value: formatCurrency(plafondDeduction) },
+                    { label: 'Économie d\'impôt annuelle', value: formatCurrency(economieImpot) },
+                    { label: 'Sortie obligatoire', value: 'Rente viagère uniquement' },
+                    { label: 'Durée d\'épargne', value: duree + ' ans' }
+                ]
+            };
+        }
+
+        function calculateRenteViagere(age, sexe, capital) {
+            const tauxReversion = parseInt(document.getElementById('tauxReversion').value);
+            const ageConjoint = parseInt(document.getElementById('ageConjoint').value) || null;
+            
+            const coefficientActuariel = calculateActuarialCoefficient(age, sexe, 0.015);
+            let renteAnnuelle = capital / coefficientActuariel;
+            let renteReversion = 0;
+            
+            // Application de la réduction pour réversion
+            if (tauxReversion > 0 && ageConjoint) {
+                let reductionPourcentage = 0;
+                switch (tauxReversion) {
+                    case 60: reductionPourcentage = 8; break;
+                    case 80: reductionPourcentage = 15; break;
+                    case 100: reductionPourcentage = 20; break;
+                }
+                renteAnnuelle = renteAnnuelle * (1 - reductionPourcentage / 100);
+                renteReversion = renteAnnuelle * (tauxReversion / 100);
+            }
+
+            const renteMensuelle = renteAnnuelle / 12;
+
+            return {
+                type: 'Rente Viagère',
+                renteAnnuelle: Math.round(renteAnnuelle),
+                renteMensuelle: Math.round(renteMensuelle),
+                renteReversion: Math.round(renteReversion),
+                tauxReversion: tauxReversion,
+                summary: [
+                    { label: 'Capital investi', value: formatCurrency(capital) },
+                    { label: 'Rente annuelle', value: formatCurrency(renteAnnuelle) },
+                    { label: 'Rente mensuelle', value: formatCurrency(renteMensuelle) },
+                    { label: 'Taux de réversion', value: tauxReversion + '%' },
+                    { label: 'Rente de réversion', value: formatCurrency(renteReversion) },
+                    { label: 'Indexation', value: 'IPC avec clause de non-diminution' }
+                ]
+            };
+        }
+
+        function calculateActuarialCoefficient(age, sexe, tauxTechnique) {
+            // Calcul simplifié du coefficient actuariel
+            const esperanceVie = sexe === 'F' ? 86 - age : 80 - age;
+            const facteurActualisation = 1 / (1 + tauxTechnique);
+            
+            let coefficient = 0;
+            for (let k = 0; k < esperanceVie; k++) {
+                coefficient += Math.pow(facteurActualisation, k) * Math.pow(0.98, k);
+            }
+            
+            return coefficient;
+        }
+
+        function displayResults(results) {
+            // Titre principal
+            document.getElementById('resultTitle').textContent = `Simulation ${results.type}`;
+            
+            // Montant principal
+            let mainAmount;
+            if (results.capitalFinal) {
+                mainAmount = results.capitalFinal;
+                document.getElementById('resultSubtitle').textContent = 'Capital final estimé';
+            } else if (results.renteAnnuelle) {
+                mainAmount = results.renteAnnuelle;
+                document.getElementById('resultSubtitle').textContent = 'Rente annuelle estimée';
+            }
+            
+            document.getElementById('mainResult').textContent = formatCurrency(mainAmount);
+
+            // Résumé détaillé
+            const summaryContent = document.getElementById('summaryContent');
+            summaryContent.innerHTML = '';
+            
+            results.summary.forEach(item => {
+                const summaryItem = document.createElement('div');
+                summaryItem.className = 'summary-item';
+                summaryItem.innerHTML = `
+                    <span class="summary-label">${item.label}</span>
+                    <span class="summary-value">${item.value}</span>
+                `;
+                summaryContent.appendChild(summaryItem);
+            });
+
+            // Graphique (si données disponibles)
+            if (results.chartData) {
+                createChart(results.chartData);
+            } else {
+                // Masquer le graphique pour les rentes viagères
+                document.querySelector('.chart-container').style.display = 'none';
+                document.querySelector('.results-section').style.gridTemplateColumns = '1fr';
+            }
+        }
+
+        function createChart(data) {
+            const ctx = document.getElementById('evolutionChart').getContext('2d');
+            
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map(d => `Année ${d.annee}`),
+                    datasets: [
+                        {
+                            label: 'Capital accumulé',
+                            data: data.map(d => d.capital),
+                            borderColor: '#4CAF50',
+                            backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Total versé',
+                            data: data.map(d => d.verse),
+                            borderColor: '#2196F3',
+                            backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                            fill: false,
+                            borderDash: [5, 5]
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return formatCurrency(value);
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('fr-FR', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+
+        function resetSimulation() {
+            // Réinitialiser les variables
+            selectedProduct = null;
+            currentStep = 1;
+            
+            // Réinitialiser l'interface
+            document.getElementById('resultsSection').classList.add('hidden');
+            document.getElementById('productSelection').classList.remove('hidden');
+            document.querySelectorAll('.product-card').forEach(c => c.classList.remove('selected'));
+            document.getElementById('nextToParams').disabled = true;
+            updateStepIndicator(1);
+            
+            // Réinitialiser le formulaire
+            document.querySelectorAll('input, select').forEach(input => {
+                if (input.type === 'number') {
+                    input.value = '';
+                } else if (input.type === 'select-one') {
+                    input.selectedIndex = 0;
+                }
+            });
+            
+            // Réinitialiser le graphique
+            if (chart) {
+                chart.destroy();
+                chart = null;
+            }
+            
+            // Réafficher le conteneur du graphique si masqué
+            document.querySelector('.chart-container').style.display = 'block';
+            document.querySelector('.results-section').style.gridTemplateColumns = '1fr 1fr';
+        }
+    </script>
+</body>
+</html>
