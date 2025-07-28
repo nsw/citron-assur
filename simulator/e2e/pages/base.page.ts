@@ -8,13 +8,11 @@ export class BasePage {
   }
 
   async waitForPageLoad() {
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState('networkidle', { timeout: 30000 });
   }
 
   async clickButton(text: string) {
     await this.page.getByRole('button', { name: text }).click();
-    // Wait a bit for any animations or state changes
-    await this.page.waitForTimeout(500);
   }
 
   async fillInput(label: string, value: string) {
@@ -34,7 +32,7 @@ export class BasePage {
   }
 
   async waitForSelector(selector: string) {
-    await this.page.waitForSelector(selector);
+    await this.page.waitForSelector(selector, { state: 'visible', timeout: 10000 });
   }
 
   async takeScreenshot(name: string) {

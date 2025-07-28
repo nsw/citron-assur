@@ -38,6 +38,8 @@ Feature: Dynamic Form Fields
       | revenus            |
       | capital            |
       | versementsMensuels |
+      | ageRetraite        |
+      | tauxRendement      |
 
   Scenario: Product-specific help messages
     When I select the "Assurance-Vie" product

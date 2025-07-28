@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
 import { BasePage } from './base.page';
 
 export class SimulatorPage extends BasePage {
@@ -27,56 +27,78 @@ export class SimulatorPage extends BasePage {
 
   // Actions
   async selectProduct(productName: string) {
-    await this.productCard(productName).first().click();
+    const card = this.productCard(productName).first();
+    await card.click();
+    // Wait for the selection class to be applied
+    await expect(card).toHaveClass(/selected/, { timeout: 5000 });
   }
 
   async isProductSelected(productName: string): Promise<boolean> {
     const card = this.productCard(productName).first();
+    await card.waitFor({ state: 'visible' });
     const classes = await card.getAttribute('class') || '';
     return classes.includes('selected');
   }
 
   async continueToNextStep() {
     await this.clickButton('Continuer avec ce produit');
+    // Wait for form to be visible
+    await this.page.waitForSelector('.form-grid', { state: 'visible' });
   }
 
   async goBack() {
+    const currentStep = await this.getCurrentStep();
     await this.clickButton('Retour');
+    // Wait for previous step to be visible
+    if (currentStep === 2) {
+      await this.page.waitForSelector('.product-grid', { state: 'visible' });
+    } else if (currentStep === 3) {
+      await this.page.waitForSelector('.form-grid', { state: 'visible' });
+    }
   }
 
   async calculate() {
     await this.clickButton('Calculer');
+    // Wait for results to appear
+    await this.page.waitForSelector('.results-section-container', { state: 'visible' });
   }
 
   async newSimulation() {
     await this.clickButton('Nouvelle simulation');
+    // Wait for product grid to be visible
+    await this.page.waitForSelector('.product-grid', { state: 'visible' });
   }
 
   async fillForm(formData: Record<string, string>) {
     for (const [field, value] of Object.entries(formData)) {
       const element = this.formField(field);
       
-      // Wait for field to be visible before interacting
+      // Check if field exists and is visible
+      const exists = await element.count() > 0;
+      if (!exists) continue;
+      
       const isVisible = await element.isVisible();
-      if (!isVisible) {
-        continue; // Skip fields that aren't visible
-      }
+      if (!isVisible) continue;
       
       const tagName = await element.evaluate(el => el.tagName.toLowerCase());
       
       if (tagName === 'input') {
         await element.fill(value);
+        // Verify the value was set
+        await expect(element).toHaveValue(value);
       } else if (tagName === 'select') {
         await element.selectOption(value);
+        // Verify the option was selected
+        await expect(element).toHaveValue(value);
       }
     }
   }
 
   async isFieldVisible(fieldId: string): Promise<boolean> {
     try {
-      // Wait for form to be visible first
-      await this.page.locator('.form-grid').waitFor({ state: 'visible', timeout: 5000 });
-      await this.page.waitForTimeout(500);
+      // Make sure we're on the form step
+      const formGrid = this.page.locator('.form-grid');
+      await expect(formGrid).toBeVisible({ timeout: 5000 });
       
       const field = this.formField(fieldId);
       return await field.isVisible();
@@ -143,6 +165,9 @@ export class SimulatorPage extends BasePage {
   }
 
   async waitForResults() {
-    await this.page.waitForSelector('.results-section-container');
+    const resultsContainer = this.page.locator('.results-section-container');
+    await expect(resultsContainer).toBeVisible({ timeout: 10000 });
+    // Wait for the amount to be rendered
+    await expect(this.resultAmount()).toBeVisible();
   }
 }

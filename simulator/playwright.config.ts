@@ -11,7 +11,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 1,
-  workers: process.env.CI ? 1 : 3,
+  workers: process.env.CI ? 1 : 8,
   timeout: 60000,
   reporter: [
     ['html', { outputFolder: 'e2e/reports/html' }],
@@ -24,8 +24,18 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     // Capture screenshots on every action for better debugging
-    actionTimeout: 10000,
+    actionTimeout: 15000,
     navigationTimeout: 30000,
+    // Auto-waiting features
+    launchOptions: {
+      slowMo: 50, // Slow down actions by 50ms to reduce flakiness
+    },
+    // Viewport size
+    viewport: { width: 1280, height: 720 },
+    // Accept downloads
+    acceptDownloads: true,
+    // Ignore HTTPS errors
+    ignoreHTTPSErrors: true,
   },
 
   projects: [
