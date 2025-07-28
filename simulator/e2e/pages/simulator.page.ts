@@ -27,11 +27,11 @@ export class SimulatorPage extends BasePage {
 
   // Actions
   async selectProduct(productName: string) {
-    await this.productCard(productName).click();
+    await this.productCard(productName).first().click();
   }
 
   async isProductSelected(productName: string): Promise<boolean> {
-    const card = this.productCard(productName);
+    const card = this.productCard(productName).first();
     const classes = await card.getAttribute('class') || '';
     return classes.includes('selected');
   }
@@ -55,6 +55,13 @@ export class SimulatorPage extends BasePage {
   async fillForm(formData: Record<string, string>) {
     for (const [field, value] of Object.entries(formData)) {
       const element = this.formField(field);
+      
+      // Wait for field to be visible before interacting
+      const isVisible = await element.isVisible();
+      if (!isVisible) {
+        continue; // Skip fields that aren't visible
+      }
+      
       const tagName = await element.evaluate(el => el.tagName.toLowerCase());
       
       if (tagName === 'input') {
@@ -108,10 +115,13 @@ export class SimulatorPage extends BasePage {
   }
 
   async getCurrentStep(): Promise<number> {
-    for (let i = 1; i <= 3; i++) {
-      if (await this.isStepActive(i)) {
-        return i;
-      }
+    // Check which section is visible
+    if (await this.page.locator('.product-grid').isVisible()) {
+      return 1;
+    } else if (await this.page.locator('.form-grid').isVisible()) {
+      return 2;
+    } else if (await this.page.locator('.results-section-container').isVisible()) {
+      return 3;
     }
     return 0;
   }

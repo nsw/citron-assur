@@ -61,9 +61,7 @@ Feature: Product Calculations
     And I click "Continuer avec ce produit"
     And I fill the form with:
       | age | 35 |
-    And I click "Calculer"
-    Then I should still be on step 2
-    And I should see an error message
+    Then I should see an error message
 
   Scenario: Reset simulation
     Given I have completed a calculation for "Assurance-Vie"

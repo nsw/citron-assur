@@ -1,13 +1,12 @@
-import { Given, Then } from '@cucumber/cucumber';
+import { createBdd } from 'playwright-bdd';
 import { expect } from '@playwright/test';
 import { SimulatorPage } from '../pages/simulator.page';
-import { createBdd } from 'playwright-bdd';
 
-const { Given: BddGiven, Then: BddThen } = createBdd();
+const { Given, Then } = createBdd();
 
 let simulatorPage: SimulatorPage;
 
-BddGiven('I have completed a calculation for {string}', async ({ page }, productName: string) => {
+Given('I have completed a calculation for {string}', async ({ page }, productName: string) => {
   simulatorPage = new SimulatorPage(page);
   await simulatorPage.navigate('/');
   await simulatorPage.waitForPageLoad();
@@ -32,15 +31,16 @@ BddGiven('I have completed a calculation for {string}', async ({ page }, product
   await simulatorPage.waitForResults();
 });
 
-BddThen('I should see the results page', async ({ page }) => {
+Then('I should see the results page', async ({ page }) => {
   await expect(page.locator('.results-section-container')).toBeVisible();
 });
 
-BddThen('I should see {string} in the summary', async ({ page }, summaryLabel: string) => {
+Then('I should see {string} in the summary', async ({ page }, summaryLabel: string) => {
   await expect(page.locator('.summary-item', { hasText: summaryLabel })).toBeVisible();
 });
 
-BddThen('the result amount should be greater than {string}', async ({ page }, expectedAmount: string) => {
+Then('the result amount should be greater than {string}', async ({ page }, expectedAmount: string) => {
+  if (!simulatorPage) simulatorPage = new SimulatorPage(page);
   const resultText = await simulatorPage.getResultAmount();
   // Remove currency formatting
   const resultNumber = parseInt(resultText.replace(/[^\d]/g, ''), 10);
@@ -49,7 +49,8 @@ BddThen('the result amount should be greater than {string}', async ({ page }, ex
   expect(resultNumber).toBeGreaterThan(expectedNumber);
 });
 
-BddThen('I should see a chart', async ({ page }) => {
+Then('I should see a chart', async ({ page }) => {
+  if (!simulatorPage) simulatorPage = new SimulatorPage(page);
   const isChartVisible = await simulatorPage.isChartVisible();
   expect(isChartVisible).toBe(true);
 });

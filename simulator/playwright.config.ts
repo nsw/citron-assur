@@ -2,14 +2,12 @@ import { defineConfig, devices } from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
 
 const testDir = defineBddConfig({
-  paths: ['e2e/features/**/*.feature'],
-  require: ['e2e/steps/**/*.ts'],
-  requireModule: ['ts-node/register'],
+  features: 'e2e/features/**/*.feature',
+  steps: 'e2e/steps/**/*.ts',
 });
 
 export default defineConfig({
   testDir,
-  testMatch: '**/*.spec.ts',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -24,6 +22,9 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    // Capture screenshots on every action for better debugging
+    actionTimeout: 10000,
+    navigationTimeout: 30000,
   },
 
   projects: [
