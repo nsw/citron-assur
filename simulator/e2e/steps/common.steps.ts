@@ -10,6 +10,15 @@ Given('I am on the simulator page', async ({ page }) => {
   simulatorPage = new SimulatorPage(page);
   await simulatorPage.navigate('/');
   await simulatorPage.waitForPageLoad();
+  
+  // Ensure we're on the product selection page
+  await page.waitForSelector('.product-grid', { state: 'visible', timeout: 10000 });
+  
+  // Wait for all products to be loaded
+  await page.waitForSelector('.product-card', { state: 'visible' });
+  
+  // Give Angular time to initialize
+  await page.waitForTimeout(500);
 });
 
 When('I click {string}', async ({ page }, buttonText: string) => {

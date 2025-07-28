@@ -41,9 +41,17 @@ export class SimulatorPage extends BasePage {
   }
 
   async continueToNextStep() {
+    // Wait for any animations to settle
+    await this.page.waitForLoadState('domcontentloaded');
+    
     await this.clickButton('Continuer avec ce produit');
-    // Wait for form to be visible
+    
+    // Wait for navigation animation
+    await this.page.waitForTimeout(300);
+    
+    // Wait for form to be visible and stable
     await this.page.waitForSelector('.form-grid', { state: 'visible' });
+    await this.page.waitForLoadState('networkidle');
   }
 
   async goBack() {
@@ -96,11 +104,19 @@ export class SimulatorPage extends BasePage {
 
   async isFieldVisible(fieldId: string): Promise<boolean> {
     try {
+      // Wait for any animations to complete
+      await this.page.waitForLoadState('networkidle');
+      
       // Make sure we're on the form step
       const formGrid = this.page.locator('.form-grid');
       await expect(formGrid).toBeVisible({ timeout: 5000 });
       
+      // Check if field exists in DOM first
       const field = this.formField(fieldId);
+      const count = await field.count();
+      if (count === 0) return false;
+      
+      // Then check visibility
       return await field.isVisible();
     } catch {
       return false;
@@ -112,14 +128,25 @@ export class SimulatorPage extends BasePage {
   }
 
   async getFieldValue(fieldId: string): Promise<string> {
-    const field = this.formField(fieldId);
-    await field.waitFor({ state: 'visible', timeout: 5000 });
-    const tagName = await field.evaluate(el => el.tagName.toLowerCase());
-    
-    if (tagName === 'select') {
+    try {
+      const field = this.formField(fieldId);
+      
+      // Wait for field to be attached to DOM
+      await field.waitFor({ state: 'attached', timeout: 5000 });
+      
+      // Additional wait for visibility
+      await expect(field).toBeVisible({ timeout: 5000 });
+      
+      const tagName = await field.evaluate(el => el.tagName.toLowerCase());
+      
+      if (tagName === 'select') {
+        return await field.inputValue();
+      }
       return await field.inputValue();
+    } catch (error) {
+      console.error(`Failed to get value for field ${fieldId}:`, error);
+      throw error;
     }
-    return await field.inputValue();
   }
 
   async isStepActive(stepNumber: number): Promise<boolean> {

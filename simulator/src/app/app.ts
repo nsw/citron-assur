@@ -95,9 +95,14 @@ export class App implements OnInit {
       }
     });
     
-    // Force TNS status for Madelin
+    // Force TNS status for Madelin - use setTimeout to ensure DOM updates
     if (product.id === 'madelin') {
+      // Immediate update
       this.params.statut = 'tns';
+      // Ensure update is reflected in DOM
+      setTimeout(() => {
+        this.params.statut = 'tns';
+      }, 0);
     }
   }
 
