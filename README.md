@@ -7,13 +7,17 @@
 [![Java](https://img.shields.io/badge/Java-21-orange.svg)](https://openjdk.java.net/)
 [![BDD](https://img.shields.io/badge/BDD-Cucumber-brightgreen.svg)](https://cucumber.io/)
 
+## 📖 Documentation
+
+📚 **[Tutorial BDD Complet](docs/BDD-TUTORIAL.md)** • 🎭 **[Exemples de Features](docs/FEATURES-EXAMPLES.md)** • 🔧 **[Guide de Dépannage](docs/TROUBLESHOOTING.md)**
+
 ## 🎯 Vue d'Ensemble
 
 **Citron-Assur** illustre l'implémentation complète du **Behavior Driven Development (BDD)** dans un environnement moderne Angular/Java. Ce projet démontre comment les spécifications exécutables créent un pont efficace entre équipes techniques et métier.
 
 ```
 ┌─────────────────┐    HTTP/REST    ┌─────────────────┐
-│   Frontend      │ ◄──────────────► │   Backend       │
+│   Frontend      │ ◄─────────────► │   Backend       │
 │   Angular 19    │                 │   Spring Boot   │
 │   + Playwright  │                 │   + Cucumber    │
 │   + Cucumber    │                 │   + Maven       │
