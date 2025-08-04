@@ -6,156 +6,151 @@ Collection complète des scénarios Gherkin pour le projet Citron-Assur.
 
 `tests/features/products-management.feature` :
 ```gherkin
-# language: fr
-Fonctionnalité: Gestion des produits d'assurance
-  En tant qu'utilisateur de Citron-Assur
-  Je veux consulter et filtrer les produits d'assurance
-  Afin de trouver le produit qui correspond à mes besoins
+Feature: Insurance products management
+  As a Citron-Assur user
+  I want to browse and filter insurance products
+  So that I can find the product that matches my needs
 
-  Contexte:
-    Étant donné que je suis sur la page d'accueil de Citron-Assur
+  Background:
+    Given I am on the Citron-Assur homepage
 
-  Scénario: Affichage de tous les produits groupés par type
-    Quand je consulte la liste des produits
-    Alors je vois 6 catégories de produits
-    Et chaque catégorie est représentée par une icône distinctive
-    Et je peux voir le nombre de produits dans chaque catégorie
+  Scenario: Display all products grouped by type
+    When I view the product list
+    Then I see 6 product categories
+    And each category is represented by a distinctive icon
+    And I can see the number of products in each category
 
-  Scénario: Consultation des détails d'un produit
-    Étant donné que je vois la liste des produits "Assurance Vie"
-    Quand je clique sur le produit "Netissima Plus"
-    Alors une fenêtre modale s'ouvre
-    Et je vois les informations détaillées du produit
-    Et je peux naviguer entre les onglets "Informations", "Détails" et "JSON"
+  Scenario: View product details
+    Given I see the "Life Insurance" product list
+    When I click on product "Netissima Plus"
+    Then a modal window opens
+    And I see the detailed product information
+    And I can navigate between "Information", "Details" and "JSON" tabs
 
-  Plan du scénario: Filtrage par type de produit
-    Quand je déplie la catégorie "<type_produit>"
-    Alors je vois <nombre> produits dans cette catégorie
-    Et chaque produit affiche son nom commercial
-    Et chaque produit affiche son identifiant
+  Scenario Outline: Filter by product type
+    When I expand the category "<product_type>"
+    Then I see <count> products in this category
+    And each product displays its commercial name
+    And each product displays its identifier
 
-    Exemples:
-      | type_produit          | nombre |
-      | Assurance Vie         | 3      |
-      | PER Individuel        | 3      |
-      | Contrat Madelin       | 3      |
-      | Contrat Capitalisation| 3      |
-      | Prévoyance Mixte      | 3      |
-      | Rente Viagère         | 3      |
+    Examples:
+      | product_type            | count |
+      | Life Insurance          | 3     |
+      | Individual PER          | 3     |
+      | Madelin Contract        | 3     |
+      | Capitalization Contract | 3     |
+      | Mixed Protection        | 3     |
+      | Life Annuity            | 3     |
 ```
 
 ## Feature: Validation des Données Produits
 
 `tests/features/product-validation.feature` :
 ```gherkin
-# language: fr
-Fonctionnalité: Validation des données produits
-  Les produits d'assurance doivent respecter certaines règles métier
+Feature: Product data validation
+  Insurance products must comply with certain business rules
 
-  Règle: Tous les produits doivent avoir des informations obligatoires
+  Rule: All products must have mandatory information
 
-    Scénario: Vérification des champs obligatoires
-      Étant donné un produit de type "Assurance Vie"
-      Alors le produit doit avoir un "nom_commercial"
-      Et le produit doit avoir un "id" unique
-      Et le produit doit avoir un "type" valide
-      Et le produit doit avoir un objet "data" non vide
+    Scenario: Verify mandatory fields
+      Given a product of type "Life Insurance"
+      Then the product should have a "commercial_name"
+      And the product should have a unique "id"
+      And the product should have a valid "type"
+      And the product should have a non-empty "data" object
 
-  Règle: Les produits d'assurance vie ont des frais spécifiques
+  Rule: Life insurance products have specific fees
 
-    Scénario: Validation des frais d'assurance vie
-      Étant donné le produit "Netissima Plus" de type "Assurance Vie"
-      Alors les frais de gestion doivent être entre 0% et 5%
-      Et les frais d'entrée doivent être entre 0% et 10%
-      Et les frais d'arbitrage doivent être définis
+    Scenario: Validate life insurance fees
+      Given the product "Netissima Plus" of type "Life Insurance"
+      Then management fees should be between 0% and 5%
+      And entry fees should be between 0% and 10%
+      And arbitrage fees should be defined
 ```
 
 ## Feature: Interface Utilisateur
 
 `tests/features/ui-behavior.feature` :
 ```gherkin
-# language: fr
 @ui
-Fonctionnalité: Comportement de l'interface utilisateur
-  L'interface doit être intuitive et responsive
+Feature: User interface behavior
+  The interface should be intuitive and responsive
 
   @critical
-  Scénario: Navigation principale
-    Étant donné que je suis sur la page d'accueil
-    Alors je vois le logo Citron-Assur avec animation
-    Et je vois le titre "Citron-Assur"
-    Et je vois le sous-titre explicatif
+  Scenario: Main navigation
+    Given I am on the homepage
+    Then I see the Citron-Assur logo with animation
+    And I see the "Citron-Assur" title
+    And I see the explanatory subtitle
 
-  Scénario: Interactions avec les panneaux
-    Étant donné que je vois les catégories de produits
-    Quand je survole une catégorie
-    Alors l'apparence change pour indiquer l'interactivité
-    Et je vois un effet de transition fluide
+  Scenario: Panel interactions
+    Given I see the product categories
+    When I hover over a category
+    Then the appearance changes to indicate interactivity
+    And I see a smooth transition effect
 
-  Scénario: Ouverture des détails produit
-    Étant donné une liste de produits affichée
-    Quand je clique n'importe où sur une ligne de produit
-    Alors le modal de détails s'ouvre
-    Et je vois une icône chevron qui indique la navigation
+  Scenario: Opening product details
+    Given a product list is displayed
+    When I click anywhere on a product row
+    Then the details modal opens
+    And I see a chevron icon indicating navigation
 ```
 
 ## Feature: API Backend
 
 `tests/features/api/products-api.feature` :
 ```gherkin
-# language: fr
 @api
-Fonctionnalité: API des produits d'assurance
-  L'API doit fournir les données des produits de manière fiable
+Feature: Insurance products API
+  The API should provide product data reliably
 
   @smoke
-  Scénario: API disponible
-    Quand j'appelle GET "/api/products"
-    Alors je reçois un statut 200
-    Et la réponse contient une liste de produits
+  Scenario: API available
+    When I call GET "/api/products"
+    Then I receive a 200 status
+    And the response contains a list of products
 
-  Plan du scénario: Récupération par type
-    Quand j'appelle GET "/api/products/<type>"
-    Alors je reçois un statut 200
-    Et tous les produits retournés sont de type "<type>"
-    Et je reçois exactement <nombre> produits
+  Scenario Outline: Retrieve by type
+    When I call GET "/api/products/<type>"
+    Then I receive a 200 status
+    And all returned products are of type "<type>"
+    And I receive exactly <count> products
 
-    Exemples:
-      | type                   | nombre |
-      | assurance-vie          | 3      |
-      | per-individuel         | 3      |
-      | contrat-madelin        | 3      |
+    Examples:
+      | type                   | count |
+      | assurance-vie          | 3     |
+      | per-individuel         | 3     |
+      | contrat-madelin        | 3     |
 
-  Scénario: Produit spécifique
-    Quand j'appelle GET "/api/products/assurance-vie/AV001"
-    Alors je reçois un statut 200
-    Et le produit retourné a l'id "AV001"
-    Et le produit a le type "assurance-vie"
+  Scenario: Specific product
+    When I call GET "/api/products/assurance-vie/AV001"
+    Then I receive a 200 status
+    And the returned product has id "AV001"
+    And the product has type "assurance-vie"
 
-  Scénario: Produit inexistant
-    Quand j'appelle GET "/api/products/assurance-vie/INEXISTANT"
-    Alors je reçois un statut 404
+  Scenario: Non-existent product
+    When I call GET "/api/products/assurance-vie/NONEXISTENT"
+    Then I receive a 404 status
 ```
 
 ## Feature: Performance et Qualité
 
 `tests/features/performance.feature` :
 ```gherkin
-# language: fr
 @performance
-Fonctionnalité: Performance de l'application
-  L'application doit être rapide et responsive
+Feature: Application performance
+  The application should be fast and responsive
 
-  Scénario: Temps de chargement initial
-    Quand je charge la page d'accueil
-    Alors la page se charge en moins de 2 secondes
-    Et les produits s'affichent en moins de 3 secondes
+  Scenario: Initial loading time
+    When I load the homepage
+    Then the page loads in less than 2 seconds
+    And products display in less than 3 seconds
 
-  Scénario: Réactivité des interactions
-    Étant donné que je suis sur la page des produits
-    Quand je clique sur un produit
-    Alors le modal s'ouvre en moins de 500ms
-    Et les données se chargent en moins de 1 seconde
+  Scenario: Interaction responsiveness
+    Given I am on the products page
+    When I click on a product
+    Then the modal opens in less than 500ms
+    And data loads in less than 1 second
 ```
 
 ## Tags Utilisés
@@ -171,12 +166,12 @@ Fonctionnalité: Performance de l'application
 ## Exemple d'Utilisation avec Tables
 
 ```gherkin
-Scénario: Validation des produits avec données tabulaires
-  Étant donné les produits suivants:
-    | nom             | type           | frais_gestion | statut |
-    | Netissima Plus  | assurance-vie  | 0.6          | actif  |
-    | Linxea Avenir   | assurance-vie  | 0.5          | actif  |
-    | PER Epsens      | per-individuel | 0.8          | actif  |
-  Quand je valide chaque produit
-  Alors tous les produits respectent les règles métier
+Scenario: Product validation with tabular data
+  Given the following products:
+    | name            | type           | management_fee | status |
+    | Netissima Plus  | assurance-vie  | 0.6           | active |
+    | Linxea Avenir   | assurance-vie  | 0.5           | active |
+    | PER Epsens      | per-individuel | 0.8           | active |
+  When I validate each product
+  Then all products comply with business rules
 ```

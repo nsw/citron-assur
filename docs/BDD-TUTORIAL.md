@@ -101,27 +101,27 @@ After(async function (this: ICustomWorld) {
   await this.closeBrowser();
 });
 
-Given('que je suis sur la page d\'accueil de Citron-Assur', async function (this: ICustomWorld) {
+Given('I am on the Citron-Assur homepage', async function (this: ICustomWorld) {
   await this.page!.goto(this.baseURL);
   await expect(this.page!.locator('h1')).toContainText('Citron-Assur');
 });
 
-When('je consulte la liste des produits', async function (this: ICustomWorld) {
+When('I view the product list', async function (this: ICustomWorld) {
   await this.page!.waitForSelector('.product-groups');
 });
 
-Then('je vois {int} catégories de produits', async function (this: ICustomWorld, count: number) {
+Then('I see {int} product categories', async function (this: ICustomWorld, count: number) {
   const categories = await this.page!.locator('mat-expansion-panel').count();
   expect(categories).toBe(count);
 });
 
-When('je clique sur le produit {string}', async function (this: ICustomWorld, productName: string) {
+When('I click on product {string}', async function (this: ICustomWorld, productName: string) {
   await this.page!.locator('mat-list-item')
     .filter({ hasText: productName })
     .click();
 });
 
-Then('une fenêtre modale s\'ouvre', async function (this: ICustomWorld) {
+Then('a modal window opens', async function (this: ICustomWorld) {
   await expect(this.page!.locator('mat-dialog-container')).toBeVisible();
 });
 ```
@@ -157,8 +157,8 @@ package com.citronassur.steps;
 
 import com.citronassur.backend.model.Product;
 import com.citronassur.backend.service.SimpleProductService;
-import io.cucumber.java.fr.Alors;
-import io.cucumber.java.fr.Etantdonné;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -177,17 +177,17 @@ public class ProductSteps {
 
     private Product currentProduct;
 
-    @Etantdonné("un produit de type {string}")
-    public void unProduitDeType(String type) {
+    @Given("a product of type {string}")
+    public void aProductOfType(String type) {
         List<Product> products = productService.getProductsByType(type);
-        assertFalse(products.isEmpty(), "Aucun produit trouvé pour le type: " + type);
+        assertFalse(products.isEmpty(), "No product found for type: " + type);
         currentProduct = products.get(0);
     }
 
-    @Alors("le produit doit avoir un {string}")
-    public void leProduitDoitAvoirUn(String field) {
+    @Then("the product should have a {string}")
+    public void theProductShouldHaveA(String field) {
         switch (field) {
-            case "nom_commercial":
+            case "commercial_name":
                 assertNotNull(currentProduct.getNom_commercial());
                 assertFalse(currentProduct.getNom_commercial().isEmpty());
                 break;
