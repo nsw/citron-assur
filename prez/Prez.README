@@ -1,0 +1,63 @@
+# Présentation BDD en Agile
+
+## Problématique Actuelle
+
+• Les Tech Leads sont actuellement chargés de rédiger des spécifications techniques sans pouvoir analyser le code en profondeur, développer, déboguer, mettre des points d'arrêt, ou tester les résultats.
+
+• Ils sont également chargés du support niveau 1 et effectuent toutes les tâches sauf celles qui relèvent de leur rôle de Tech Lead.
+
+• Cette situation rend la rédaction de bonnes spécifications techniques et exécutables très difficile, voire inefficace.
+
+• Le double processus (Waterfall + Agile), où le cycle en V est linéaire avec des exigences figées et des tests tardifs, se superpose aux méthodes agiles axées sur des cycles courts et des tests continus. Cela mène à l'ajout de processus inutiles qui prennent plus de temps que le développement lui-même.
+
+• Il en résulte un risque élevé de spécifications imprécises, incomplètes, obsolètes ou erronées, ainsi qu'une difficulté accrue à déceler les problèmes de logique métier ou de comportement. Les problèmes sont souvent découverts tardivement, entraînant des retards et des coûts supplémentaires.
+
+• Les équipes Dev sont séparées des Tech Leads par le document de haut niveau (spécification). Elles ne peuvent pas monter en compétence si elles ne sont pas autonomes pour analyser le ticket et le problème.
+
+• Les tests ne sont pas automatisés, les tests actuels sont optimisables. Les anomalies/régressions en production ne devraient pas être si nombreuses si les tests en qualification sont bien faits.
+
+## Objectifs
+
+1. Commencer à se transformer en vrai agile pour avoir plus d'efficacité de processus
+2. Apporter le maximum de compétences/valeur ajoutée des Tech Leads
+3. Mieux collaborer avec l'équipe de Dev
+
+## Proposition : Intégrer la Conception au Cycle de Vie du Code (BDD), avec également l'aide de l'IA (démo)
+
+• **Adopter les spécifications exécutables comme pierre angulaire** : Utiliser des outils et des méthodologies qui lient directement les spécifications aux tests automatisés (ex: BDD/Gherkin avec des Step Handlers, Storyteller, FitNesse, Concordion).
+
+• **Impliquer activement les Tech Leads dans le développement et le test** : Les Tech Leads doivent non seulement concevoir, mais aussi pouvoir "développer, déboguer, mettre des points d'arrêt et tester le résultat". Cela garantit que les spécifications sont réalisables et précises.
+
+• **Renforcer la collaboration "3 Amigos"** : Instaurer des ateliers de spécification (ou Backlog Refinement) où les Tech Leads, Product Owners et Testeurs travaillent ensemble pour définir les exigences et les exemples concrets du comportement attendu du système.
+
+• **Développer une "documentation vivante"** : Faire en sorte que les spécifications soient générées ou validées automatiquement à partir du code (par exemple, via des rapports de tests BDD dans un pipeline CI/CD) pour garantir qu'elles restent toujours à jour et fiables.
+
+• **Encourager la "Spécification par l'exemple" (SBE)** : Utiliser des exemples concrets pour illustrer les exigences et créer des tests automatisés, ce qui "permet de déceler des problèmes dans la logique métier ou le comportement de l'écran beaucoup plus rapidement".
+
+• **Aide de l'IA pour la partie BDD (Spécifications Exécutables)** :
+  - Génération assistée de scénarios Gherkin : Utiliser l'IA pour générer des ébauches de scénarios "Given/When/Then" à partir de User Stories ou de descriptions textuelles initiales du besoin, en s'assurant d'une formulation cohérente.
+  - Détection d'ambiguïtés et de cas limites : L'IA peut analyser les scénarios Gherkin existants pour identifier d'éventuelles ambiguïtés, incohérences ou suggérer des cas d'usage non couverts (ex: scénarios alternatifs, cas d'erreur, cas aux limites), enrichissant ainsi la couverture des tests.
+  - Suggestion de "Step Handlers" et de code de "fixtures" : L'IA pourrait proposer des squelettes de code pour les "Step Handlers" (fonctions qui exécutent le code réel) et les "fixtures" (éléments créant l'environnement de test), accélérant ainsi le processus d'automatisation des spécifications.
+  - Maintien de la cohérence terminologique : L'IA peut aider à s'assurer que le vocabulaire utilisé dans les spécifications Gherkin correspond au "ubiquitous language" défini par l'équipe et reflété dans le code (ex: via des annotations ou des vérifications par rapport au code).
+  - Amélioration de la documentation générée : L'IA peut post-traiter les rapports de tests BDD générés (documentation vivante) pour en améliorer la lisibilité, générer des résumés ou des graphiques de couverture, facilitant leur consultation par tous les acteurs.
+
+## Plan d'Action : Mettre en Œuvre le Changement
+
+### Phase 0 : Présentation de l'idée et POC à toute l'équipe, entretiens individuels avec chacun pour ajuster les détails
+
+### Phase 1 : Formation et Sensibilisation au BDD et IA
+- Former les Tech Leads et les équipes aux principes des spécifications exécutables (SBE, BDD), au Test-Driven Development (TDD) et à l'utilisation des outils pertinents (ex: Gherkin, Storyteller, Concordion).
+- Organiser des sessions de sensibilisation pour toute l'équipe de développement et les Product Owners sur l'importance de la documentation vivante et de la collaboration dès la phase de spécification.
+- Introduire les concepts d'aide de l'IA pour optimiser le processus BDD.
+
+### Phase 2 : Mise en Pratique Collaborative
+- Mettre en place des "ateliers de spécification" ou "Backlog Refinement" réguliers réunissant les Product Owners, Tech Leads et Testeurs pour définir collectivement les User Stories et les exemples de comportement.
+- Instaurer le "binômage" (pair-programming) entre Tech Leads/développeurs et testeurs lors de la rédaction des "Step Handlers" et l'implémentation des tests automatisés.
+- Inciter les Tech Leads à contribuer directement au code des "Step Handlers" ou aux "fixtures" pour valider leurs spécifications.
+- Expérimenter des outils ou plugins d'IA pour la génération assistée des scénarios Gherkin et la détection d'ambiguïtés dans des projets pilotes.
+
+### Phase 3 : Automatisation et Intégration Continue
+- Intégrer l'exécution des spécifications exécutables dans les pipelines d'Intégration Continue (CI/CD). Configurer la génération automatique de rapports (ex: HTML) à partir de ces tests pour servir de "documentation vivante" accessible à tous.
+- Définir et appliquer une "Définition de Terminé" (Definition of Done) claire pour chaque fonctionnalité, incluant le passage au vert des spécifications exécutables associées.
+- Promouvoir l'utilisation de "makefiles auto-documentés" ou d'outils similaires pour documenter les usages techniques directement liés au code, garantissant leur actualisation.
+- Évaluer et intégrer les outils d'IA jugés efficaces dans le workflow BDD régulier pour les aspects de génération, revue et maintenance des spécifications exécutables.
