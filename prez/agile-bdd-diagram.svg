@@ -1,0 +1,93 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Titre principal -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#00A651">Agile avec BDD</text>
+  
+  <!-- Cycles itératifs -->
+  <g id="sprints">
+    <!-- Sprint 1 -->
+    <g transform="translate(150, 150)">
+      <circle cx="0" cy="0" r="80" fill="#F5FFF5" stroke="#00A651" stroke-width="3"/>
+      <text x="0" y="-10" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#3E454A">Sprint 1</text>
+      <text x="0" y="10" font-family="Arial" font-size="14" text-anchor="middle" fill="#3E454A">2 semaines</text>
+    </g>
+    
+    <!-- Sprint 2 -->
+    <g transform="translate(400, 150)">
+      <circle cx="0" cy="0" r="80" fill="#F5FFF5" stroke="#00A651" stroke-width="3"/>
+      <text x="0" y="-10" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#3E454A">Sprint 2</text>
+      <text x="0" y="10" font-family="Arial" font-size="14" text-anchor="middle" fill="#3E454A">2 semaines</text>
+    </g>
+    
+    <!-- Sprint 3 -->
+    <g transform="translate(650, 150)">
+      <circle cx="0" cy="0" r="80" fill="#F5FFF5" stroke="#00A651" stroke-width="3"/>
+      <text x="0" y="-10" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#3E454A">Sprint 3</text>
+      <text x="0" y="10" font-family="Arial" font-size="14" text-anchor="middle" fill="#3E454A">2 semaines</text>
+    </g>
+    
+    <!-- Flèches entre sprints -->
+    <path d="M 230 150 L 320 150" stroke="#00A651" stroke-width="3" marker-end="url(#arrowgreen)"/>
+    <path d="M 480 150 L 570 150" stroke="#00A651" stroke-width="3" marker-end="url(#arrowgreen)"/>
+    
+    <!-- Feedback loops -->
+    <path d="M 150 230 Q 150 270 230 270 Q 320 270 320 230" stroke="#ae1580" stroke-width="2" stroke-dasharray="5,5" fill="none" marker-end="url(#arrowpurple)"/>
+    <text x="235" y="290" font-family="Arial" font-size="12" text-anchor="middle" fill="#ae1580">Feedback</text>
+  </g>
+  
+  <!-- User Story et BDD -->
+  <g id="user-story-bdd">
+    <rect x="50" y="320" width="330" height="120" fill="#F5FFF5" stroke="#00A651" stroke-width="2" rx="10"/>
+    <text x="215" y="345" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#00A651">User Story</text>
+    <text x="60" y="370" font-family="Arial" font-size="14" fill="#3E454A">En tant que client</text>
+    <text x="60" y="390" font-family="Arial" font-size="14" fill="#3E454A">Je veux pouvoir me connecter</text>
+    <text x="60" y="410" font-family="Arial" font-size="14" fill="#3E454A">Afin d'accéder à mon compte</text>
+    <line x1="60" y1="420" x2="370" y2="420" stroke="#ae1580" stroke-width="1"/>
+    <text x="60" y="435" font-family="Arial" font-size="12" fill="#ae1580">→ Critères d'acceptation BDD</text>
+    
+    <rect x="420" y="320" width="330" height="120" fill="#FFF5FF" stroke="#ae1580" stroke-width="2" rx="10"/>
+    <text x="585" y="345" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#ae1580">Spécification BDD</text>
+    <text x="430" y="370" font-family="Arial" font-size="14" fill="#3E454A">Given: l'utilisateur est sur la page</text>
+    <text x="430" y="390" font-family="Arial" font-size="14" fill="#3E454A">When: il entre ses identifiants</text>
+    <text x="430" y="410" font-family="Arial" font-size="14" fill="#3E454A">Then: il accède à son tableau de bord</text>
+    <text x="430" y="430" font-family="Arial" font-size="12" font-style="italic" fill="#ae1580">→ Tests automatisés</text>
+  </g>
+  
+  <!-- Collaboration 3 Amigos -->
+  <g id="three-amigos" transform="translate(400, 260)">
+    <text x="0" y="-20" font-family="Arial" font-size="16" font-weight="bold" text-anchor="middle" fill="#ae1580">Collaboration "3 Amigos"</text>
+    
+    <circle cx="-60" cy="20" r="30" fill="#FFF5FF" stroke="#ae1580" stroke-width="2"/>
+    <text x="-60" y="25" font-family="Arial" font-size="12" text-anchor="middle" fill="#3E454A">PO</text>
+    
+    <circle cx="0" cy="20" r="30" fill="#FFF5FF" stroke="#ae1580" stroke-width="2"/>
+    <text x="0" y="20" font-family="Arial" font-size="12" text-anchor="middle" fill="#3E454A">Tech</text>
+    <text x="0" y="32" font-family="Arial" font-size="12" text-anchor="middle" fill="#3E454A">Lead</text>
+    
+    <circle cx="60" cy="20" r="30" fill="#FFF5FF" stroke="#ae1580" stroke-width="2"/>
+    <text x="60" y="25" font-family="Arial" font-size="12" text-anchor="middle" fill="#3E454A">QA</text>
+  </g>
+  
+  <!-- Caractéristiques -->
+  <rect x="50" y="460" width="700" height="120" fill="#F5FFF5" stroke="#00A651" stroke-width="2" rx="10"/>
+  <text x="400" y="485" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#00A651">Caractéristiques</text>
+  
+  <g>
+    <text x="100" y="510" font-family="Arial" font-size="16" fill="#3E454A">• Cycles courts et itératifs (sprints)</text>
+    <text x="100" y="530" font-family="Arial" font-size="16" fill="#3E454A">• User Stories simples et claires</text>
+    <text x="100" y="550" font-family="Arial" font-size="16" fill="#3E454A">• Documentation vivante (BDD)</text>
+    
+    <text x="420" y="510" font-family="Arial" font-size="16" fill="#3E454A">• Tests continus et automatisés</text>
+    <text x="420" y="530" font-family="Arial" font-size="16" fill="#3E454A">• Feedback rapide et régulier</text>
+    <text x="420" y="550" font-family="Arial" font-size="16" fill="#3E454A">• Adaptation facile aux changements</text>
+  </g>
+  
+  <!-- Définition des flèches -->
+  <defs>
+    <marker id="arrowgreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00A651"/>
+    </marker>
+    <marker id="arrowpurple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ae1580"/>
+    </marker>
+  </defs>
+</svg>

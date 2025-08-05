@@ -1,0 +1,78 @@
+agile-bdd-diagram.svg<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Titre principal -->
+  <text x="400" y="40" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#D7000F">Cycle en V (Waterfall)</text>
+  
+  <!-- Structure en V -->
+  <g id="v-structure">
+    <!-- Branche descendante -->
+    <line x1="100" y1="100" x2="400" y2="350" stroke="#3E454A" stroke-width="4"/>
+    
+    <!-- Branche montante -->
+    <line x1="400" y1="350" x2="700" y2="100" stroke="#3E454A" stroke-width="4"/>
+    
+    <!-- Phases descendantes -->
+    <g>
+      <rect x="50" y="80" width="180" height="50" fill="#FFF5F5" stroke="#D7000F" stroke-width="2" rx="5"/>
+      <text x="140" y="110" font-family="Arial" font-size="16" text-anchor="middle" fill="#3E454A">Expression</text>
+      <text x="140" y="125" font-family="Arial" font-size="14" text-anchor="middle" fill="#3E454A">des besoins</text>
+    </g>
+    
+    <g>
+      <rect x="120" y="160" width="180" height="50" fill="#FFF5F5" stroke="#D7000F" stroke-width="2" rx="5"/>
+      <text x="210" y="190" font-family="Arial" font-size="16" text-anchor="middle" fill="#3E454A">Spécifications</text>
+      <text x="210" y="205" font-family="Arial" font-size="14" text-anchor="middle" fill="#3E454A">fonctionnelles</text>
+    </g>
+    
+    <g>
+      <rect x="190" y="240" width="180" height="50" fill="#FFF5F5" stroke="#D7000F" stroke-width="2" rx="5"/>
+      <text x="280" y="270" font-family="Arial" font-size="16" text-anchor="middle" fill="#3E454A">Conception</text>
+      <text x="280" y="285" font-family="Arial" font-size="14" text-anchor="middle" fill="#3E454A">technique</text>
+    </g>
+    
+    <g>
+      <rect x="310" y="320" width="180" height="50" fill="#FFF5F5" stroke="#D7000F" stroke-width="2" rx="5"/>
+      <text x="400" y="350" font-family="Arial" font-size="16" text-anchor="middle" fill="#3E454A">Développement</text>
+    </g>
+    
+    <!-- Phases montantes -->
+    <g>
+      <rect x="430" y="240" width="180" height="50" fill="#FFF5F5" stroke="#D7000F" stroke-width="2" rx="5"/>
+      <text x="520" y="270" font-family="Arial" font-size="16" text-anchor="middle" fill="#3E454A">Tests</text>
+      <text x="520" y="285" font-family="Arial" font-size="14" text-anchor="middle" fill="#3E454A">unitaires</text>
+    </g>
+    
+    <g>
+      <rect x="500" y="160" width="180" height="50" fill="#FFF5F5" stroke="#D7000F" stroke-width="2" rx="5"/>
+      <text x="590" y="190" font-family="Arial" font-size="16" text-anchor="middle" fill="#3E454A">Tests</text>
+      <text x="590" y="205" font-family="Arial" font-size="14" text-anchor="middle" fill="#3E454A">d'intégration</text>
+    </g>
+    
+    <g>
+      <rect x="570" y="80" width="180" height="50" fill="#FFF5F5" stroke="#D7000F" stroke-width="2" rx="5"/>
+      <text x="660" y="110" font-family="Arial" font-size="16" text-anchor="middle" fill="#3E454A">Recette &amp;</text>
+      <text x="660" y="125" font-family="Arial" font-size="14" text-anchor="middle" fill="#3E454A">Validation</text>
+    </g>
+    
+    <!-- Flèches de correspondance -->
+    <g>
+      <path d="M 140 130 Q 300 250 590 180" stroke="#ae1580" stroke-width="2" stroke-dasharray="5,5" fill="none"/>
+      <path d="M 210 210 Q 350 280 520 250" stroke="#ae1580" stroke-width="2" stroke-dasharray="5,5" fill="none"/>
+    </g>
+  </g>
+  
+  <!-- Caractéristiques -->
+  <rect x="50" y="410" width="700" height="170" fill="#FFF5F5" stroke="#D7000F" stroke-width="2" rx="10"/>
+  <text x="400" y="440" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#D7000F">Caractéristiques</text>
+  
+  <g>
+    <text x="100" y="470" font-family="Arial" font-size="16" fill="#3E454A">• Processus linéaire et séquentiel</text>
+    <text x="100" y="495" font-family="Arial" font-size="16" fill="#3E454A">• Documentation lourde et exhaustive</text>
+    <text x="100" y="520" font-family="Arial" font-size="16" fill="#3E454A">• Spécifications figées dès le début</text>
+    <text x="100" y="545" font-family="Arial" font-size="16" fill="#3E454A">• Tests effectués tardivement</text>
+    
+    <text x="420" y="470" font-family="Arial" font-size="16" fill="#3E454A">• Changements très coûteux</text>
+    <text x="420" y="495" font-family="Arial" font-size="16" fill="#3E454A">• Peu d'interactions avec le client</text>
+    <text x="420" y="520" font-family="Arial" font-size="16" fill="#3E454A">• Risque de décalage avec les besoins</text>
+    <text x="420" y="545" font-family="Arial" font-size="16" fill="#3E454A">• Détection tardive des problèmes</text>
+  </g>
+</svg>
